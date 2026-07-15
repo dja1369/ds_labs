@@ -6,7 +6,7 @@
 따르세요. 요약:
 
 ```
-git clone https://github.com/<org>/ds_labs.git
+git clone https://github.com/dja1369/ds_labs.git
 cd ds_labs
 docker compose -f docker/runner/docker-compose.yml build
 docker compose -f templates/redis-blocking-threshold/docker-compose.yml run --rm runner ./experiment.sh --params params.yml --out results --smoke
