@@ -16,12 +16,22 @@ Redis 단일 인스턴스(`redis:7-alpine`, `--maxmemory-policy noeviction`, `cp
 
 ## 산출물
 - `data[]`: metric `throughput_ops_sec`/`p99_latency_ms` × series `SET`/`GET`
+- `data[]`: metric `redis_cpu_utilization_pct` (series 없음) — 각 concurrency 스텝
+  동안 `INFO cpu`의 `used_cpu_user` 누적치 델타를 스텝 wall-clock 시간으로 나눈 값.
+  redis-server 프로세스가 그 구간에서 실제로 CPU를 얼마나 썼는지를 나타낸다.
+- `data[]`: metric `usec_per_call` × series `SET`/`GET` — `INFO commandstats`의
+  `usec_per_call`(스텝마다 `CONFIG RESETSTAT`으로 초기화 후 측정). 서버가 명령 하나
+  처리하는 데 실제로 걸린 시간 — 클라이언트가 관측하는 P99(대기 시간 포함)와 대조군.
 - `summary.blocking_threshold_concurrency`: SET P99가 baseline의 `sla_multiplier`배를
   처음 넘는 concurrency (없으면 `null`)
 - `summary.baseline_p99_ms`: 최소 concurrency에서의 SET P99
+- `summary.redis_cpu_utilization_pct_at_threshold`: 임계 concurrency에서의
+  `redis_cpu_utilization_pct` — "이벤트 루프가 CPU 포화 상태였는가"에 대한 직접 증거
 
 ## 결론 서술의 한계
 컨테이너/VM 환경에서 P99 급증은 Redis 이벤트 루프 외에도 benchmark 클라이언트 자체,
-Docker Desktop VM, CPU 스케줄링의 영향일 수 있다. 결론은 "이 환경에서 관측된 지연
-임계치"로 한정해 서술한다 — "이벤트 루프 포화가 원인"이라고 단정하려면
-`INFO commandstats` 등 보조 증거가 필요하다(CONTRACT.md 문서 신뢰성 규칙 참고).
+Docker Desktop VM, CPU 스케줄링의 영향일 수 있다. `redis_cpu_utilization_pct`와
+`usec_per_call`이 함께 낮게 유지된다면(예: 첫 실행에서 실제로 그랬다 — CPU 10%대,
+usec_per_call 0.3~0.5 수준 고정), "이벤트 루프 CPU 포화"는 원인이 아니라는 뜻이다 —
+결론은 그 증거를 있는 그대로 반영해야 한다(CONTRACT.md 문서 신뢰성 규칙 참고).
+단정하기 전에 항상 이 두 계측을 함께 인용한다.
