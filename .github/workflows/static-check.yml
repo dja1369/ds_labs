@@ -1,7 +1,7 @@
 name: static-check
 on:
   pull_request:
-    paths: ["templates/**", "lib/**", "schemas/**", "docker/**", ".gitattributes"]
+    paths: ["templates/**", "lib/**", "schemas/**", "docker/**", ".gitattributes", ".github/workflows/**"]
 jobs:
   static:
     runs-on: windows-latest
