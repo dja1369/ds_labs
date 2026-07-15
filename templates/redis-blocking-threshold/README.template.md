@@ -7,6 +7,9 @@
 ## 안건
 ${QUESTION}
 
+## 요약
+${SUMMARY}
+
 ## 가설
 ${HYPOTHESIS}
 

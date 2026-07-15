@@ -52,6 +52,9 @@ docker compose -f templates/<slug>/docker-compose.yml run --rm runner ./experime
 ## 안건
 ${QUESTION}
 
+## 요약
+${SUMMARY}
+
 ## 가설
 ${HYPOTHESIS}
 
@@ -71,7 +74,9 @@ ${CONCLUSION}
 ${NEXT_QUESTIONS}
 ```
 
-표준 토큰 집합: `TITLE DATE TEMPLATE_NAME TAGS QUESTION HYPOTHESIS SETUP METHOD RESULTS CONCLUSION NEXT_QUESTIONS`. 임의로 새 토큰을 추가하지 않는다 — 확장이 필요하면 이 문서를 먼저 개정한다(스킬이 파싱 가능해야 한다).
+표준 토큰 집합: `TITLE DATE TEMPLATE_NAME TAGS QUESTION SUMMARY HYPOTHESIS SETUP METHOD RESULTS CONCLUSION NEXT_QUESTIONS`. 임의로 새 토큰을 추가하지 않는다 — 확장이 필요하면 이 문서를 먼저 개정한다(스킬이 파싱 가능해야 한다).
+
+`SUMMARY`는 본문 전체를 읽지 않아도 결론을 파악할 수 있도록 2~4문장으로 압축한 요약이다 — 핵심 수치(임계값 등)를 포함하되, 근거는 `RESULTS`/`CONCLUSION`에서 상세히 다룬다. 안건 바로 다음, 가설보다 먼저 오는 이유는 독자가 "그래서 결론이 뭔데"를 가장 먼저 보게 하기 위함이다(가독성 우선).
 
 `RESULTS`/`CONCLUSION` 섹션에 등장하는 모든 수치는 반드시 `results.json`의 `data[]` 또는 `summary`에서 인용해야 한다. 문서에 없는 수치를 추측·생성하지 않는다.
 
