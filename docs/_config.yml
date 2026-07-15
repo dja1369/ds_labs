@@ -3,7 +3,7 @@ description: "컴퓨터/인프라 실험을 재현 가능한 형태로 기록하
 baseurl: /ds_labs        # 프로젝트 페이지(dja1369.github.io/ds_labs) 필수 — 없으면 relative_url이 도메인 루트를 가리켜 이미지 404
 url: https://dja1369.github.io
 repo_url: https://github.com/dja1369/ds_labs   # lib/publish_post.py가 experiment_url 생성에 사용
-ga_measurement_id: G-XXXXXXXXXX   # GA4 측정 ID로 교체할 것 (minima 기본 google_analytics 키는 폐지된 UA용이라 쓰지 않음, docs/_includes/head.html 참고)
+ga_measurement_id: G-NFWHQFGMVC   # GA4 측정 ID (minima 기본 google_analytics 키는 폐지된 UA용이라 쓰지 않음, docs/_includes/head.html 참고)
 theme: minima
 plugins:
   - jekyll-feed
