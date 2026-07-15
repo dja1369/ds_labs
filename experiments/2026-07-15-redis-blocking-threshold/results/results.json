@@ -7,9 +7,9 @@
     "template_version": "1.0.0"
   },
   "run": {
-    "run_id": "2026-07-15T08-53-31Z-84a6e394",
-    "started_at": "2026-07-15T08:53:31Z",
-    "finished_at": "2026-07-15T08:54:07Z",
+    "run_id": "2026-07-15T09-34-09Z-a26cef48",
+    "started_at": "2026-07-15T09:34:09Z",
+    "finished_at": "2026-07-15T09:34:45Z",
     "smoke": false,
     "environment": {
       "arch": "aarch64",
@@ -38,7 +38,7 @@
       "series": "SET",
       "x_label": "concurrency",
       "x": 1,
-      "y": 21739.1,
+      "y": 21725.0,
       "unit": "ops/sec",
       "note": null
     },
@@ -56,7 +56,7 @@
       "series": "GET",
       "x_label": "concurrency",
       "x": 1,
-      "y": 20206.1,
+      "y": 21739.1,
       "unit": "ops/sec",
       "note": null
     },
@@ -65,7 +65,7 @@
       "series": "GET",
       "x_label": "concurrency",
       "x": 1,
-      "y": 0.119,
+      "y": 0.071,
       "unit": "ms",
       "note": null
     },
@@ -74,13 +74,31 @@
       "series": "SET",
       "x_label": "concurrency",
       "x": 10,
-      "y": 212766.0,
+      "y": 194552.5,
       "unit": "ops/sec",
       "note": null
     },
     {
       "metric": "p99_latency_ms",
       "series": "SET",
+      "x_label": "concurrency",
+      "x": 10,
+      "y": 0.095,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 10,
+      "y": 210970.5,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "GET",
       "x_label": "concurrency",
       "x": 10,
       "y": 0.087,
@@ -89,28 +107,10 @@
     },
     {
       "metric": "throughput_ops_sec",
-      "series": "GET",
-      "x_label": "concurrency",
-      "x": 10,
-      "y": 213219.6,
-      "unit": "ops/sec",
-      "note": null
-    },
-    {
-      "metric": "p99_latency_ms",
-      "series": "GET",
-      "x_label": "concurrency",
-      "x": 10,
-      "y": 0.079,
-      "unit": "ms",
-      "note": null
-    },
-    {
-      "metric": "throughput_ops_sec",
       "series": "SET",
       "x_label": "concurrency",
       "x": 50,
-      "y": 203666.0,
+      "y": 196463.7,
       "unit": "ops/sec",
       "note": null
     },
@@ -119,7 +119,7 @@
       "series": "SET",
       "x_label": "concurrency",
       "x": 50,
-      "y": 0.551,
+      "y": 0.383,
       "unit": "ms",
       "note": null
     },
@@ -128,7 +128,7 @@
       "series": "GET",
       "x_label": "concurrency",
       "x": 50,
-      "y": 215053.8,
+      "y": 201207.2,
       "unit": "ops/sec",
       "note": null
     },
@@ -137,7 +137,7 @@
       "series": "GET",
       "x_label": "concurrency",
       "x": 50,
-      "y": 0.279,
+      "y": 0.335,
       "unit": "ms",
       "note": null
     },
@@ -146,7 +146,7 @@
       "series": "SET",
       "x_label": "concurrency",
       "x": 100,
-      "y": 186915.9,
+      "y": 191938.6,
       "unit": "ops/sec",
       "note": null
     },
@@ -155,7 +155,7 @@
       "series": "SET",
       "x_label": "concurrency",
       "x": 100,
-      "y": 0.495,
+      "y": 0.487,
       "unit": "ms",
       "note": null
     },
@@ -164,7 +164,7 @@
       "series": "GET",
       "x_label": "concurrency",
       "x": 100,
-      "y": 204081.6,
+      "y": 182815.4,
       "unit": "ops/sec",
       "note": null
     },
@@ -173,7 +173,7 @@
       "series": "GET",
       "x_label": "concurrency",
       "x": 100,
-      "y": 0.687,
+      "y": 0.447,
       "unit": "ms",
       "note": null
     },
@@ -182,7 +182,7 @@
       "series": "SET",
       "x_label": "concurrency",
       "x": 250,
-      "y": 176678.5,
+      "y": 158227.8,
       "unit": "ops/sec",
       "note": null
     },
@@ -191,7 +191,7 @@
       "series": "SET",
       "x_label": "concurrency",
       "x": 250,
-      "y": 1.439,
+      "y": 1.599,
       "unit": "ms",
       "note": null
     },
@@ -200,7 +200,7 @@
       "series": "GET",
       "x_label": "concurrency",
       "x": 250,
-      "y": 166944.9,
+      "y": 161030.6,
       "unit": "ops/sec",
       "note": null
     },
@@ -209,7 +209,7 @@
       "series": "GET",
       "x_label": "concurrency",
       "x": 250,
-      "y": 1.495,
+      "y": 1.367,
       "unit": "ms",
       "note": null
     },
@@ -218,7 +218,7 @@
       "series": "SET",
       "x_label": "concurrency",
       "x": 500,
-      "y": 144092.2,
+      "y": 146627.6,
       "unit": "ops/sec",
       "note": null
     },
@@ -227,7 +227,7 @@
       "series": "SET",
       "x_label": "concurrency",
       "x": 500,
-      "y": 7.999,
+      "y": 3.335,
       "unit": "ms",
       "note": null
     },
@@ -236,7 +236,7 @@
       "series": "GET",
       "x_label": "concurrency",
       "x": 500,
-      "y": 146198.8,
+      "y": 144927.5,
       "unit": "ops/sec",
       "note": null
     },
@@ -245,7 +245,7 @@
       "series": "GET",
       "x_label": "concurrency",
       "x": 500,
-      "y": 5.503,
+      "y": 3.439,
       "unit": "ms",
       "note": null
     },
@@ -254,7 +254,7 @@
       "series": "SET",
       "x_label": "concurrency",
       "x": 1000,
-      "y": 134770.9,
+      "y": 132626.0,
       "unit": "ops/sec",
       "note": null
     },
@@ -263,7 +263,7 @@
       "series": "SET",
       "x_label": "concurrency",
       "x": 1000,
-      "y": 8.879,
+      "y": 5.151,
       "unit": "ms",
       "note": null
     },
@@ -272,7 +272,7 @@
       "series": "GET",
       "x_label": "concurrency",
       "x": 1000,
-      "y": 137551.6,
+      "y": 130548.3,
       "unit": "ops/sec",
       "note": null
     },
@@ -281,7 +281,7 @@
       "series": "GET",
       "x_label": "concurrency",
       "x": 1000,
-      "y": 8.031,
+      "y": 7.807,
       "unit": "ms",
       "note": null
     },
@@ -290,42 +290,6 @@
       "series": "SET",
       "x_label": "concurrency",
       "x": 2000,
-      "y": 126262.6,
-      "unit": "ops/sec",
-      "note": null
-    },
-    {
-      "metric": "p99_latency_ms",
-      "series": "SET",
-      "x_label": "concurrency",
-      "x": 2000,
-      "y": 21.231,
-      "unit": "ms",
-      "note": null
-    },
-    {
-      "metric": "throughput_ops_sec",
-      "series": "GET",
-      "x_label": "concurrency",
-      "x": 2000,
-      "y": 128866.0,
-      "unit": "ops/sec",
-      "note": null
-    },
-    {
-      "metric": "p99_latency_ms",
-      "series": "GET",
-      "x_label": "concurrency",
-      "x": 2000,
-      "y": 20.223,
-      "unit": "ms",
-      "note": null
-    },
-    {
-      "metric": "throughput_ops_sec",
-      "series": "SET",
-      "x_label": "concurrency",
-      "x": 4000,
       "y": 128369.7,
       "unit": "ops/sec",
       "note": null
@@ -334,8 +298,44 @@
       "metric": "p99_latency_ms",
       "series": "SET",
       "x_label": "concurrency",
+      "x": 2000,
+      "y": 13.239,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 129199.0,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 18.015,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "SET",
+      "x_label": "concurrency",
       "x": 4000,
-      "y": 29.599,
+      "y": 125000.0,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 4000,
+      "y": 47.103,
       "unit": "ms",
       "note": null
     },
@@ -344,7 +344,7 @@
       "series": "GET",
       "x_label": "concurrency",
       "x": 4000,
-      "y": 129366.1,
+      "y": 131926.1,
       "unit": "ops/sec",
       "note": null
     },
@@ -353,14 +353,258 @@
       "series": "GET",
       "x_label": "concurrency",
       "x": 4000,
-      "y": 22.751,
+      "y": 20.047,
       "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "redis_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 1,
+      "y": 7.6,
+      "unit": "%",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 1,
+      "y": 0.75,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 1,
+      "y": 0.53,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "redis_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 10,
+      "y": 19.4,
+      "unit": "%",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 10,
+      "y": 0.31,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 10,
+      "y": 0.25,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "redis_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 50,
+      "y": 16.7,
+      "unit": "%",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 50,
+      "y": 0.3,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 50,
+      "y": 0.27,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "redis_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 100,
+      "y": 14.5,
+      "unit": "%",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 100,
+      "y": 0.33,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 100,
+      "y": 0.28,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "redis_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 250,
+      "y": 10.9,
+      "unit": "%",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 250,
+      "y": 0.38,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 250,
+      "y": 0.32,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "redis_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 500,
+      "y": 8.6,
+      "unit": "%",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 500,
+      "y": 0.4,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 500,
+      "y": 0.35,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "redis_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 1000,
+      "y": 6.7,
+      "unit": "%",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 1000,
+      "y": 0.44,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 1000,
+      "y": 0.38,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "redis_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 5.6,
+      "unit": "%",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 0.46,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 0.39,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "redis_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 4000,
+      "y": 3.5,
+      "unit": "%",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 4000,
+      "y": 0.48,
+      "unit": "usec",
+      "note": null
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 4000,
+      "y": 0.37,
+      "unit": "usec",
       "note": null
     }
   ],
   "summary": {
     "blocking_threshold_concurrency": 250,
-    "baseline_p99_ms": 0.071
+    "baseline_p99_ms": 0.071,
+    "redis_cpu_utilization_pct_at_threshold": 10.9
   },
   "status": "success",
   "notes": []

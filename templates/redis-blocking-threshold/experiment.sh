@@ -65,12 +65,33 @@ RUN_ID="$(date -u +%Y-%m-%dT%H-%M-%SZ)-$(head -c4 /dev/urandom | od -An -tx1 | t
 RAW_CSV="$OUT/raw/redis_benchmark.csv"
 echo "concurrency,test,rps,avg_latency_ms,min_latency_ms,p50_latency_ms,p95_latency_ms,p99_latency_ms,max_latency_ms" > "$RAW_CSV"
 
+# INFO cpu(used_cpu_user 누적값)와 INFO commandstats(usec_per_call)를 스텝 전후로
+# 찍어 "이벤트 루프가 실제로 포화됐는가"를 결과 수치 아닌 서버 자체 계측으로도
+# 뒷받침한다. CONFIG RESETSTAT은 commandstats/keyspace 통계만 초기화하고
+# used_cpu_user(getrusage 누적치)는 건드리지 않으므로, 전후 델타가 그 스텝
+# 동안 redis-server가 실제로 소비한 CPU 시간이다.
+INSTR_CSV="$OUT/raw/instrumentation.csv"
+echo "concurrency,wall_start,wall_end,cpu_user_before,cpu_user_after,set_usec_per_call,get_usec_per_call" > "$INSTR_CSV"
+
 for concurrency in "${CONCURRENCY_SWEEP[@]}"; do
   echo "concurrency=$concurrency 실행 중..." >&2
+  redis-cli -h redis CONFIG RESETSTAT >/dev/null
+
+  cpu_before="$(redis-cli -h redis INFO cpu | tr -d '\r' | sed -n 's/^used_cpu_user:\(.*\)$/\1/p')"
+  wall_start="$(date +%s.%N)"
+
   redis-benchmark -h redis -t set,get -n "$REQUESTS_PER_STEP" -c "$concurrency" --csv \
     | tail -n +2 \
     | sed "s/^/${concurrency},/" \
     >> "$RAW_CSV"
+
+  wall_end="$(date +%s.%N)"
+  cpu_after="$(redis-cli -h redis INFO cpu | tr -d '\r' | sed -n 's/^used_cpu_user:\(.*\)$/\1/p')"
+  commandstats="$(redis-cli -h redis INFO commandstats | tr -d '\r')"
+  set_usec="$(echo "$commandstats" | sed -n 's/^cmdstat_set:.*usec_per_call=\([0-9.]*\).*/\1/p')"
+  get_usec="$(echo "$commandstats" | sed -n 's/^cmdstat_get:.*usec_per_call=\([0-9.]*\).*/\1/p')"
+
+  echo "$concurrency,$wall_start,$wall_end,$cpu_before,$cpu_after,${set_usec:-0},${get_usec:-0}" >> "$INSTR_CSV"
 done
 
 FINISHED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
@@ -113,6 +134,34 @@ if baseline_p99 is not None:
             threshold = c
             break
 
+# redis-server 자체 계측(INFO cpu / INFO commandstats)으로 "이벤트 루프 포화" 가설을
+# 클라이언트 관측 레이턴시가 아닌 서버 쪽 증거로도 뒷받침한다.
+with open("$INSTR_CSV") as f:
+    instr_rows = list(csv.reader(f))
+instr_rows = instr_rows[1:]
+
+cpu_pct_by_concurrency = {}
+for concurrency_str, wall_start, wall_end, cpu_before, cpu_after, set_usec, get_usec in instr_rows:
+    concurrency = int(concurrency_str)
+    wall = float(wall_end) - float(wall_start)
+    cpu_delta = float(cpu_after) - float(cpu_before)
+    cpu_pct = round(100 * cpu_delta / wall, 1) if wall > 0 else 0.0
+    cpu_pct_by_concurrency[concurrency] = cpu_pct
+    data.append({
+        "metric": "redis_cpu_utilization_pct", "series": None, "x_label": "concurrency",
+        "x": concurrency, "y": cpu_pct, "unit": "%", "note": None,
+    })
+    data.append({
+        "metric": "usec_per_call", "series": "SET", "x_label": "concurrency",
+        "x": concurrency, "y": round(float(set_usec), 2), "unit": "usec", "note": None,
+    })
+    data.append({
+        "metric": "usec_per_call", "series": "GET", "x_label": "concurrency",
+        "x": concurrency, "y": round(float(get_usec), 2), "unit": "usec", "note": None,
+    })
+
+cpu_utilization_at_threshold = cpu_pct_by_concurrency.get(threshold) if threshold is not None else None
+
 started_at = "$STARTED_AT"
 finished_at = "$FINISHED_AT"
 
@@ -140,6 +189,7 @@ results = {
     "summary": {
         "blocking_threshold_concurrency": threshold,
         "baseline_p99_ms": round(baseline_p99, 3) if baseline_p99 is not None else None,
+        "redis_cpu_utilization_pct_at_threshold": cpu_utilization_at_threshold,
     },
     "status": "success",
     "notes": [],
