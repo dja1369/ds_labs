@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# TOPICS.md #1 / implement.md 10장 — Redis 단일 인스턴스는 초당 몇 건의 SET/GET
+# TOPICS.md #1 — Redis 단일 인스턴스는 초당 몇 건의 SET/GET
 # 요청부터 P99 레이턴시가 급격히(기본 10배) 튀는가? redis-benchmark --csv로
 # concurrency를 스윕하며 측정한다. bash에는 YAML 파서가 없어 params.yml 읽기와
 # results.json 조립은 python3(+PyYAML, 공용 이미지에 이미 포함)에 위임한다.
@@ -53,7 +53,7 @@ print(" ".join(str(v) for v in value) if isinstance(value, list) else value)
 PYEOF
 }
 
-CONCURRENCY_SWEEP=($(read_param concurrency_sweep))
+read -ra CONCURRENCY_SWEEP <<< "$(read_param concurrency_sweep)"
 REQUESTS_PER_STEP="$(read_param requests_per_step)"
 SLA_MULTIPLIER="$(read_param sla_multiplier)"
 
