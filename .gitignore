@@ -21,3 +21,6 @@ Thumbs.db
 
 # Claude Code 세션별 워크트리 (기기별 임시 상태, 커밋 대상 아님)
 .claude/worktrees/
+
+# 초기 설계 산출물 — 리포에서 제거됨, 재추적 방지
+implement.md
