@@ -1,0 +1,19 @@
+# 템플릿 실행 임시 산출물 (커밋 대상 아님 — experiments/로 승격된 결과만 커밋한다)
+templates/**/results/
+
+# 실험의 원본 미가공 산출물 (raw 벤치마크 덤프 등). results.json/results.csv/charts/는 커밋 대상이다.
+experiments/**/results/raw/
+
+# Jekyll 빌드 산출물 (로컬 미리보기 시 생성됨, 배포는 GitHub Pages가 서버 측에서 빌드)
+docs/_site/
+docs/.jekyll-cache/
+docs/.jekyll-metadata
+docs/Gemfile.lock
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db

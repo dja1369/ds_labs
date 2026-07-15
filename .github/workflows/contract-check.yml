@@ -1,0 +1,46 @@
+name: contract-check
+on:
+  pull_request:
+    paths: ["templates/**", "lib/**", "schemas/**", "docker/**", ".gitattributes"]
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    outputs:
+      slugs: ${{ steps.diff.outputs.slugs }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - id: diff
+        run: |
+          # 변경된 templates/<slug>/ 목록을 JSON 배열로 추출 (_skeleton 제외).
+          # lib/·schemas/ 변경 시에는 전체 템플릿을 순회해 계약 파손을 감지한다.
+          if git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -qE '^(lib|schemas)/'; then
+            slugs=$(ls -d templates/*/ | cut -d/ -f2 | grep -v '^_skeleton$' | jq -R . | jq -sc .)
+          else
+            slugs=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- templates/ \
+              | cut -d/ -f2 | sort -u | grep -v '^_skeleton$' | jq -R . | jq -sc .)
+          fi
+          echo "slugs=$slugs" >> "$GITHUB_OUTPUT"
+  smoke:
+    needs: detect
+    if: needs.detect.outputs.slugs != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        slug: ${{ fromJson(needs.detect.outputs.slugs) }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose -f docker/runner/docker-compose.yml build
+      - run: |
+          docker compose -f templates/${{ matrix.slug }}/docker-compose.yml run --rm runner \
+            ./experiment.sh --params params.yml --out results --smoke
+      - run: |
+          docker compose -f docker/runner/docker-compose.yml run --rm runner \
+            python -m lib.validate_results templates/${{ matrix.slug }}/results/results.json
+      - run: |
+          docker compose -f docker/runner/docker-compose.yml run --rm runner \
+            python -m lib.to_csv templates/${{ matrix.slug }}/results/results.json templates/${{ matrix.slug }}/results/results.csv
+      - run: |
+          docker compose -f docker/runner/docker-compose.yml run --rm runner \
+            python -m lib.chart --results templates/${{ matrix.slug }}/results/results.json --out templates/${{ matrix.slug }}/results/charts/
+      - run: docker compose -f templates/${{ matrix.slug }}/docker-compose.yml down -v

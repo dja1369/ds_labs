@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ds-labs.local/schemas/results.schema.json",
+  "title": "ds_labs results.json",
+  "type": "object",
+  "required": ["schema_version", "experiment", "run", "parameters", "data", "status"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "experiment": {
+      "type": "object",
+      "required": ["id", "agenda", "template", "template_version"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "agenda": { "type": "string" },
+        "template": { "type": "string" },
+        "template_version": { "type": "string" }
+      }
+    },
+    "run": {
+      "type": "object",
+      "required": ["run_id", "started_at", "finished_at", "smoke"],
+      "properties": {
+        "run_id": { "type": "string" },
+        "started_at": { "type": "string", "format": "date-time" },
+        "finished_at": { "type": "string", "format": "date-time" },
+        "duration_sec": { "type": "number" },
+        "smoke": { "type": "boolean" },
+        "environment": {
+          "type": "object",
+          "properties": {
+            "arch": { "type": "string" },
+            "cpu_cores": { "type": "integer" },
+            "memory_gb": { "type": "number" }
+          }
+        }
+      }
+    },
+    "parameters": { "type": "object" },
+    "data": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["metric", "series", "x_label", "x", "y", "unit"],
+        "properties": {
+          "metric":  { "type": "string" },
+          "series":  { "type": ["string", "null"] },
+          "x_label": { "type": "string" },
+          "x":       { "type": ["number", "string"] },
+          "y":       { "type": "number" },
+          "unit":    { "type": "string" },
+          "note":    { "type": ["string", "null"] }
+        }
+      }
+    },
+    "summary": { "type": "object" },
+    "status": { "enum": ["success", "failed", "partial"] },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  }
+}
