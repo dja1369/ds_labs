@@ -1,0 +1,367 @@
+{
+  "schema_version": "1.0",
+  "experiment": {
+    "id": "redis-blocking-threshold",
+    "agenda": "Redis 단일 인스턴스는 초당 몇 건의 SET/GET 요청부터 P99 레이턴시가 급격히(10배 이상) 튀며 이벤트 루프가 포화 상태에 진입하는가?",
+    "template": "redis-blocking-threshold",
+    "template_version": "1.0.0"
+  },
+  "run": {
+    "run_id": "2026-07-15T08-53-31Z-84a6e394",
+    "started_at": "2026-07-15T08:53:31Z",
+    "finished_at": "2026-07-15T08:54:07Z",
+    "smoke": false,
+    "environment": {
+      "arch": "aarch64",
+      "cpu_cores": 2,
+      "memory_gb": 3.8
+    }
+  },
+  "parameters": {
+    "concurrency_sweep": [
+      1,
+      10,
+      50,
+      100,
+      250,
+      500,
+      1000,
+      2000,
+      4000
+    ],
+    "requests_per_step": 100000,
+    "sla_multiplier": 10.0
+  },
+  "data": [
+    {
+      "metric": "throughput_ops_sec",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 1,
+      "y": 21739.1,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 1,
+      "y": 0.071,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 1,
+      "y": 20206.1,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 1,
+      "y": 0.119,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 10,
+      "y": 212766.0,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 10,
+      "y": 0.087,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 10,
+      "y": 213219.6,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 10,
+      "y": 0.079,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 50,
+      "y": 203666.0,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 50,
+      "y": 0.551,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 50,
+      "y": 215053.8,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 50,
+      "y": 0.279,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 100,
+      "y": 186915.9,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 100,
+      "y": 0.495,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 100,
+      "y": 204081.6,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 100,
+      "y": 0.687,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 250,
+      "y": 176678.5,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 250,
+      "y": 1.439,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 250,
+      "y": 166944.9,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 250,
+      "y": 1.495,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 500,
+      "y": 144092.2,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 500,
+      "y": 7.999,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 500,
+      "y": 146198.8,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 500,
+      "y": 5.503,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 1000,
+      "y": 134770.9,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 1000,
+      "y": 8.879,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 1000,
+      "y": 137551.6,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 1000,
+      "y": 8.031,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 126262.6,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 21.231,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 128866.0,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 20.223,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 4000,
+      "y": 128369.7,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 4000,
+      "y": 29.599,
+      "unit": "ms",
+      "note": null
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 4000,
+      "y": 129366.1,
+      "unit": "ops/sec",
+      "note": null
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 4000,
+      "y": 22.751,
+      "unit": "ms",
+      "note": null
+    }
+  ],
+  "summary": {
+    "blocking_threshold_concurrency": 250,
+    "baseline_p99_ms": 0.071
+  },
+  "status": "success",
+  "notes": []
+}

@@ -1,0 +1,20 @@
+# TOPICS.md #1 / implement.md 10장 — Redis 단일 인스턴스는 초당 몇 건의 SET/GET
+# 요청부터 P99 레이턴시가 급격히(10배 이상) 튀는가?
+#
+# redis: 측정 대상. runner: redis-tools(redis-benchmark/redis-cli)를 추가 설치한
+# 공용 이미지 확장 (옆의 Dockerfile 참고).
+services:
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--maxmemory-policy", "noeviction"]
+    cpus: 2
+
+  runner:
+    build:
+      context: ../..
+      dockerfile: templates/redis-blocking-threshold/Dockerfile
+    volumes:
+      - ../..:/workspace
+    working_dir: /workspace/templates/redis-blocking-threshold
+    depends_on:
+      - redis

@@ -1,0 +1,8 @@
+concurrency_sweep: [1, 10, 50, 100, 250, 500, 1000, 2000, 4000]
+requests_per_step: 100000
+sla_multiplier: 10
+
+# --smoke 모드에서 사용하는 축소 값. sla_multiplier는 smoke에서도 동일하게 쓴다.
+smoke:
+  concurrency_sweep: [1, 50]
+  requests_per_step: 2000
