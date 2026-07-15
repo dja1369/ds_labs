@@ -1,4 +1,4 @@
-# Redis 단일 인스턴스는 초당 몇 건의 SET/GET 요청부터 P99 레이턴시가 급격히 튀는가?
+# Redis에 요청을 얼마나 넣으면 터질까?
 
 - 날짜: 2026-07-15
 - 템플릿: redis-blocking-threshold
@@ -7,6 +7,13 @@
 ## 안건
 Redis 단일 인스턴스는 초당 몇 건의 SET/GET 요청부터 P99 레이턴시가 급격히(10배
 이상) 튀며 이벤트 루프가 포화 상태에 진입하는가?
+
+## 요약
+동시 연결 250개부터 심상치 않다. concurrency 1일 때 SET P99는 0.071ms인데,
+250에서 1.439ms로 약 20배 뛰어 "baseline 10배" 기준을 넘겼다. 그 뒤로는
+concurrency가 2배 늘 때마다 레이턴시도 같이 크게 뛰었다(500에서 8ms, 2000에서
+21ms, 4000에서 30ms). 처리량은 요청이 몰려도 완만하게만 줄어서, 체감 문제는
+처리량보다 레이턴시 쪽에서 먼저 터진다.
 
 ## 가설
 Redis는 단일 스레드 이벤트 루프이므로, concurrency가 baseline(최소 concurrency)
@@ -27,9 +34,9 @@ Redis는 단일 스레드 이벤트 루프이므로, concurrency가 baseline(최
 
 ## 결과
 
-baseline(`concurrency=1`)의 SET P99는 **0.071ms**였고, `concurrency=250`에서
-SET P99가 **1.439ms**로 baseline 대비 약 20배를 기록해 임계값(10배, 0.71ms)을
-넘었다 — `summary.blocking_threshold_concurrency = 250`.
+baseline(`concurrency=1`)의 SET P99는 **0.071ms**. `concurrency=250`에서
+**1.439ms**로 약 20배 — 임계값(10배, 0.71ms)을 넘김
+(`summary.blocking_threshold_concurrency = 250`).
 
 | concurrency | SET P99 (ms) | GET P99 (ms) | SET 처리량 (ops/sec) |
 |---|---|---|---|
@@ -48,26 +55,23 @@ SET P99가 **1.439ms**로 baseline 대비 약 20배를 기록해 임계값(10배
 ![throughput_ops_sec](results/charts/throughput_ops_sec.png)
 ![p99_latency_ms](results/charts/p99_latency_ms.png)
 
-처리량은 `concurrency=10~50` 구간에서 정점(약 203,000~213,000 ops/sec)을 찍은 뒤
-`concurrency`가 커질수록 완만히 하락했다. P99 레이턴시는 `concurrency=250`
-이전까지는 1ms 미만으로 유지되다가, `250` 이후 구간(`500`, `1000`, `2000`,
-`4000`)에서 각각 8ms·9ms·21ms·30ms 수준으로 계단식으로 뛰었다. `concurrency=50`
-→`100` 구간에서 SET P99가 0.551ms→0.495ms로 미세하게 감소하는 비단조 구간이
-하나 있었다 — 벤치마크 클라이언트/스케줄링 노이즈로 보이며, 전체 추세(급격한
-증가)에 영향을 주지 않는다.
+처리량은 `concurrency=10~50` 구간에서 정점(203,000~213,000 ops/sec) 찍고 그
+뒤로는 완만하게 내려감. P99는 `250` 전까진 1ms도 안 되다가, `250`부터
+`500`→8ms, `1000`→9ms, `2000`→21ms, `4000`→30ms로 계단 뛰듯 올라감.
+`50`→`100` 구간에서 SET P99가 0.551ms→0.495ms로 살짝 내려가는 구간이 하나
+있는데, 이건 그냥 노이즈로 보임 — 전체 추세엔 영향 없음.
 
 ## 결론
 
-이 환경(`cpus: 2` 제한, Docker Desktop VM)에서 관측된 지연 임계치는
-**concurrency 250 부근**이다. 이 지점부터 P99가 baseline의 10배를 넘고,
-이후 concurrency가 2배씩 늘 때마다 P99도 함께 큰 폭으로 뛰는 패턴이 이어졌다.
+이 환경(`cpus: 2` 제한, Docker Desktop VM) 기준 지연 임계치는 **concurrency
+250 근처**. 여기서부터 P99가 baseline 10배를 넘고, concurrency가 2배씩 뛸
+때마다 P99도 같이 크게 뜀.
 
-다만 이 컨테이너/VM 환경에서의 P99 급증을 "Redis 이벤트 루프가 포화됐다"고
-단정하지는 않는다 — `redis-benchmark` 클라이언트 자체의 부하, Docker Desktop
-VM의 스케줄링, `cpus: 2` CPU 제한의 영향이 섞여 있을 수 있다. 이 결론은
-"이 환경에서 관측된 지연 임계치"로 한정한다. 이벤트 루프 포화가 실제 원인인지
-확인하려면 `INFO commandstats`나 서버 CPU 사용률 같은 보조 증거가 필요하다
-(`TEMPLATE.md` 참고).
+근데 이걸 "Redis 이벤트 루프가 포화됐다"고 딱 잘라 말하기엔 이르다. `redis-benchmark`
+클라이언트 자체 부하, Docker Desktop VM 스케줄링, `cpus: 2` 제한 — 이런
+것들이 다 섞여있을 수 있음. 그래서 결론은 "이 환경에서 관측된 지연 임계치"
+까지만. 진짜 원인이 이벤트 루프 포화인지 확인하려면 `INFO commandstats`나
+서버 CPU 사용률 같은 걸 더 봐야 함 (`TEMPLATE.md` 참고).
 
 ## 다음 연구 과제
 
