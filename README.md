@@ -1,7 +1,7 @@
 # ds_labs
 
 컴퓨터/인프라 실험(Redis, Kubernetes, ClickHouse, Spring Boot 등)을 재현 가능한
-형태로 수행하고, 결과를 [GitHub Pages](https://<user>.github.io/ds_labs/)에
+형태로 수행하고, 결과를 [GitHub Pages](https://dja1369.github.io/ds_labs/)에
 공개하는 실험 랩입니다.
 
 ```
@@ -41,7 +41,7 @@ Docker Desktop 설치 전후로 아래를 순서대로 확인하세요. "설치 
 ### 실행
 
 ```
-git clone https://github.com/<org>/ds_labs.git
+git clone https://github.com/dja1369/ds_labs.git
 cd ds_labs
 docker compose -f docker/runner/docker-compose.yml build
 docker compose -f templates/_skeleton/docker-compose.yml run --rm runner ./experiment.sh --params params.yml --out results --smoke
