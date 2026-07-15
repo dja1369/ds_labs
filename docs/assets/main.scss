@@ -3,52 +3,61 @@
 
 @charset "utf-8";
 
-// geek/terminal 톤 — minima 기본 변수 오버라이드 (앞에서 정의해야 minima.scss의
-// `!default`가 이 값을 덮어쓰지 않는다).
-$base-font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-$base-font-size:   16px;
-$base-line-height: 1.6;
+// 당근st일 클린 톤 (밝은 배경 + 보라 포인트). 코드 블록에만 모노스페이스를 남긴다
+// — 본문 전체에 모노스페이스를 쓰면 장문 읽기가 피곤해진다는 피드백을 반영.
+$mono-font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-$text-color:       #c9d1d9;
-$background-color: #0d1117;
-$brand-color:      #3fb950;
+$base-font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$base-font-size:   17px;
+$base-line-height: 1.7;
 
-$grey-color:       #8b949e;
-$grey-color-light: #30363d;
-$grey-color-dark:  #c9d1d9;
+$text-color:       #26282b;
+$background-color: #ffffff;
+$brand-color:      #7c3aed;
+
+$grey-color:       #8b8d98;
+$grey-color-light: #e7e5f0;
+$grey-color-dark:  #4b4d57;
 
 @import "minima";
 
-/* 변수 오버라이드로 못 잡는 부분 — 터미널 느낌 마무리 */
+/* 변수 오버라이드로 못 잡는 부분 */
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
 .site-header {
   border-top: none;
-  border-bottom: 1px dashed $grey-color-light;
+  border-bottom: 1px solid $grey-color-light;
 }
 
 .site-title,
 .site-title:visited {
   color: $brand-color !important;
-  letter-spacing: 0.02em;
-}
-
-.site-title::before {
-  content: "$ ";
-  color: $grey-color;
+  font-weight: 700;
 }
 
 .site-nav .page-link {
   color: $text-color;
+  font-weight: 500;
 }
 
 a:visited {
-  color: darken($brand-color, 12%);
+  color: darken($brand-color, 10%);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 code,
 pre {
-  background-color: #161b22;
+  font-family: $mono-font-family;
+  background-color: #f7f6fb;
   border: 1px solid $grey-color-light;
-  color: #e6edf3;
+  border-radius: 6px;
+  color: #3d3457;
 }
 
 table th,
@@ -56,21 +65,31 @@ table td {
   border: 1px solid $grey-color-light;
 }
 
+table th {
+  background-color: #f7f6fb;
+}
+
 table tr:nth-child(even) {
-  background-color: #161b22;
+  background-color: #fbfaff;
 }
 
 blockquote {
-  color: $grey-color;
+  color: $grey-color-dark;
   border-left: 4px solid $brand-color;
+  background-color: #f7f6fb;
+  border-radius: 0 6px 6px 0;
 }
 
 .footer-col-wrapper,
 .site-footer {
-  border-top: 1px dashed $grey-color-light;
+  border-top: 1px solid $grey-color-light;
 }
 
 img {
-  border: 1px solid $grey-color-light;
-  border-radius: 4px;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+
+.post-meta {
+  color: $grey-color;
 }
