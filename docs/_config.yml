@@ -1,0 +1,12 @@
+title: ds_labs
+description: "컴퓨터/인프라 실험을 재현 가능한 형태로 기록하는 실험 랩"
+baseurl: /ds_labs        # 프로젝트 페이지(<user>.github.io/ds_labs) 필수 — 없으면 relative_url이 도메인 루트를 가리켜 이미지 404
+url: https://<user>.github.io
+repo_url: https://github.com/<org>/ds_labs   # lib/publish_post.py가 experiment_url 생성에 사용. <org>를 실제 GitHub 조직/사용자명으로 교체할 것
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+permalink: /:year/:month/:day/:title/
+markdown: kramdown

@@ -1,0 +1,22 @@
+# 로컬 Jekyll 미리보기 전용 (선택 사항, 배포 경로 아님 — 실제 배포는 GitHub Pages
+# "Deploy from branch: main/docs"가 담당한다). jekyll/jekyll 이미지 대신 이 컨테이너를
+# 쓰는 이유는 implement.md 7장 참고 (수년간 미갱신 + arm64 미지원 + 버전 불일치).
+#
+# 실행: docker compose -f docker/jekyll/docker-compose.yml up
+services:
+  jekyll:
+    image: ruby:3.3-slim
+    working_dir: /workspace/docs
+    volumes:
+      - ../..:/workspace
+      - bundle_cache:/usr/local/bundle
+    ports:
+      - "4000:4000"
+    command: >
+      bash -c "apt-get update -qq &&
+      apt-get install -y --no-install-recommends build-essential git > /dev/null &&
+      bundle install &&
+      bundle exec jekyll serve --host 0.0.0.0 --force_polling"
+
+volumes:
+  bundle_cache:

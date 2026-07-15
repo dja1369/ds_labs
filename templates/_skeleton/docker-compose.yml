@@ -1,0 +1,15 @@
+# 신규 템플릿 시작점. runner 서비스는 공용 이미지를 그대로 쓰거나(추가 도구가
+# 필요 없으면 Dockerfile 없이 이대로), 도메인 전용 CLI가 필요하면 옆의
+# Dockerfile로 확장한다 (FROM ds-labs/runner:1.0.0).
+#
+# scaffold 규약: lib/scaffold.py는 이 파일을 복사할 때 "_skeleton" 문자열을
+# 새 슬러그로 그대로 치환한다 — working_dir 아래의 "_skeleton"도 함께 바뀐다.
+services:
+  runner:
+    image: ds-labs/runner:1.0.0
+    volumes:
+      - ../..:/workspace
+    working_dir: /workspace/templates/_skeleton
+  # TODO: 대상 인프라 서비스를 여기에 추가한다. 예:
+  # target:
+  #   image: <image>:<tag>

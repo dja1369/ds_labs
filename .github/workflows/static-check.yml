@@ -1,0 +1,26 @@
+name: static-check
+on:
+  pull_request:
+    paths: ["templates/**", "lib/**", "schemas/**", "docker/**", ".gitattributes"]
+jobs:
+  static:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - shell: pwsh
+        run: |
+          # Windows 기본 설정(core.autocrlf 영향권)으로 체크아웃한 *.sh/*.py에 CR이 섞였는지 명시 검사
+          $bad = Get-ChildItem -Recurse -Include *.sh,*.py | Where-Object {
+            (Get-Content $_ -Raw) -match "`r"
+          }
+          if ($bad) { $bad | ForEach-Object { Write-Error "CRLF detected: $_" }; exit 1 }
+      - shell: pwsh
+        run: |
+          Get-ChildItem templates -Directory | Where-Object Name -ne '_skeleton' | ForEach-Object {
+            docker compose -f "templates/$($_.Name)/docker-compose.yml" config -q
+            if ($LASTEXITCODE -ne 0) { exit 1 }
+          }
+      - shell: pwsh
+        run: python -m json.tool schemas/results.schema.json | Out-Null
+      # 주의: 이 job은 Linux 컨테이너 스모크런을 수행하지 않는다 — VALIDATION_CHECKLIST.md의
+      # 수동 검증(4단계)에서 macOS/Windows를 사람이 메꾼다.

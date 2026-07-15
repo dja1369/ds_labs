@@ -1,0 +1,16 @@
+# 공용 실행 이미지 정의. 리포 루트를 상대경로(../..)로 /workspace에 마운트하고
+# working_dir을 고정해, 호스트 명령에 $PWD 등 쉘 변수 확장이 전혀 필요 없게 한다
+# (implement.md 3.2절/4.1절 참고). Compose의 상대 경로는 이 파일의 위치를 기준으로
+# 해석되므로, 사용자가 어느 디렉토리에서 명령을 치든 결과가 동일하다.
+#
+# 빌드 컨텍스트는 리포 루트(../..)다 — Dockerfile이 lib/와 schemas/를 복사해야
+# 하기 때문에, 이 파일이 있는 docker/runner/ 만으로는 컨텍스트가 부족하다.
+services:
+  runner:
+    build:
+      context: ../..
+      dockerfile: docker/runner/Dockerfile
+    image: ds-labs/runner:1.0.0
+    volumes:
+      - ../..:/workspace
+    working_dir: /workspace
