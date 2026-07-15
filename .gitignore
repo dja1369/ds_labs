@@ -17,3 +17,6 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# Claude Code 세션별 워크트리 (기기별 임시 상태, 커밋 대상 아님)
+.claude/worktrees/
