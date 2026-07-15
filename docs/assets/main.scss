@@ -1,0 +1,76 @@
+---
+---
+
+@charset "utf-8";
+
+// geek/terminal 톤 — minima 기본 변수 오버라이드 (앞에서 정의해야 minima.scss의
+// `!default`가 이 값을 덮어쓰지 않는다).
+$base-font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+$base-font-size:   16px;
+$base-line-height: 1.6;
+
+$text-color:       #c9d1d9;
+$background-color: #0d1117;
+$brand-color:      #3fb950;
+
+$grey-color:       #8b949e;
+$grey-color-light: #30363d;
+$grey-color-dark:  #c9d1d9;
+
+@import "minima";
+
+/* 변수 오버라이드로 못 잡는 부분 — 터미널 느낌 마무리 */
+.site-header {
+  border-top: none;
+  border-bottom: 1px dashed $grey-color-light;
+}
+
+.site-title,
+.site-title:visited {
+  color: $brand-color !important;
+  letter-spacing: 0.02em;
+}
+
+.site-title::before {
+  content: "$ ";
+  color: $grey-color;
+}
+
+.site-nav .page-link {
+  color: $text-color;
+}
+
+a:visited {
+  color: darken($brand-color, 12%);
+}
+
+code,
+pre {
+  background-color: #161b22;
+  border: 1px solid $grey-color-light;
+  color: #e6edf3;
+}
+
+table th,
+table td {
+  border: 1px solid $grey-color-light;
+}
+
+table tr:nth-child(even) {
+  background-color: #161b22;
+}
+
+blockquote {
+  color: $grey-color;
+  border-left: 4px solid $brand-color;
+}
+
+.footer-col-wrapper,
+.site-footer {
+  border-top: 1px dashed $grey-color-light;
+}
+
+img {
+  border: 1px solid $grey-color-light;
+  border-radius: 4px;
+}
