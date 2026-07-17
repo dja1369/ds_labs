@@ -110,6 +110,11 @@ def publish(experiment_dir: Path) -> Path:
     front_matter = {
         "layout": "post",
         "title": title,
+        # jekyll-seo-tag의 og:description/meta description으로 쓰인다 — 없으면
+        # site.description(사이트 공통 문구)로 조용히 대체돼 포스트마다 같은
+        # 설명이 노출된다. results.json의 agenda는 이미 "이 실험이 뭘 묻는지"를
+        # 한 문장으로 담고 있어 그대로 재사용한다(docs/llms.txt도 동일 필드 사용).
+        "description": results["experiment"]["agenda"],
         "date": _front_matter_date(results["run"]["started_at"]),
     }
     if charts:
