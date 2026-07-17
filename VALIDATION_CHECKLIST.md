@@ -25,6 +25,16 @@ docker manifest inspect <base-image>
 `linux/amd64`·`linux/arm64` 둘 다 없으면 템플릿 `TEMPLATE.md`에 "Apple Silicon에서
 QEMU 에뮬레이션으로 느릴 수 있음"을 명시하거나 대체 이미지를 찾습니다.
 
+## `FINDINGS` 문체 확인 (CONTRACT.md §3)
+
+리뷰 시 `README.template.md`의 `발견 사항 및 분석`이 "5년차 개발자 리뷰" 톤인지
+한 줄이라도 대조해봅니다 — 현상 재설명이 아니라 왜 흥미로운지가 남아야 합니다.
+
+- 좋은 예(`redis-blocking-threshold`): "여기서부터가 진짜다 — redis-server 자체는
+  이 구간 내내 안 바빴다."
+- 나쁜 예: "CPU 사용률이란 서버가 요청을 처리하는 동안 프로세서를 사용한 비율을
+  뜻하며, 이 값이 낮다는 것은 시스템 자원에 여유가 있음을 의미한다."
+
 ## 템플릿별 검증 기록
 
 새 템플릿을 추가하거나 기존 템플릿을 변경할 때마다 아래 형식으로 섹션을 추가하세요.
