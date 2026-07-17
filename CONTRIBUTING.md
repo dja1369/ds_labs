@@ -12,8 +12,9 @@ docker compose -f docker/runner/docker-compose.yml build
 docker compose -f templates/redis-blocking-threshold/docker-compose.yml run --rm runner ./experiment.sh --params params.yml --out results --smoke
 ```
 
-(`redis-blocking-threshold`는 예시입니다. 실제로 존재하는 템플릿 슬러그로 바꿔서
-실행하세요. 현재는 `templates/_skeleton/`만 존재하는 더미 템플릿입니다.)
+(`redis-blocking-threshold`는 현재 유일한 실전 템플릿입니다. 다른 템플릿을 추가하면
+같은 패턴으로 슬러그만 바꿔서 실행하세요. `templates/_skeleton/`은 신규 템플릿을
+만들 때 복사하는 뼈대일 뿐 실행 예시가 아닙니다.)
 
 ## 2. 브랜치 워크플로우
 
@@ -39,8 +40,8 @@ Claude Code를 쓰는 경로(`ds-lab-run-experiment` 스킬)와 사람이 손으
 ```
 docker compose -f docker/runner/docker-compose.yml run --rm runner python -m lib.scaffold <new-slug>
 ```
-(스캐폴딩 도구는 로드맵 Phase 5에서 추가될 예정입니다. 그 전까지는
-`templates/_skeleton/`을 직접 복사해서 시작하세요.)
+(Claude Code를 쓴다면 `.claude/skills/ds-lab-new-template` 스킬이 이 명령을 대신
+실행해줍니다.)
 
 이후 `docker-compose.yml`, (선택) `Dockerfile`, `experiment.sh`, `params.yml`,
 `TEMPLATE.md`를 작성하고 아래를 확인합니다.
