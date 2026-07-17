@@ -44,12 +44,13 @@ Docker Desktop 설치 전후로 아래를 순서대로 확인하세요. "설치 
 git clone https://github.com/dja1369/ds_labs.git
 cd ds_labs
 docker compose -f docker/runner/docker-compose.yml build
-docker compose -f templates/_skeleton/docker-compose.yml run --rm runner ./experiment.sh --params params.yml --out results --smoke
+docker compose -f templates/redis-blocking-threshold/docker-compose.yml run --rm runner ./experiment.sh --params params.yml --out results --smoke
 ```
 
 마지막 명령이 `wrote results/results.json`을 출력하면 파이프라인이 정상 동작하는
-것입니다. 실전 템플릿(예: `templates/redis-blocking-threshold/`)이 추가되면 같은
-패턴으로 `-f templates/<slug>/docker-compose.yml`만 바꿔서 실행합니다.
+것입니다. 다른 템플릿을 실행하려면 같은 패턴으로 `-f templates/<slug>/docker-compose.yml`만
+바꿉니다. `templates/_skeleton/`은 신규 템플릿을 만들 때 복사하는 뼈대일 뿐 실행
+예시가 아닙니다.
 
 ## 왜 이 명령이 macOS/Windows/Linux에서 글자 하나 다르지 않게 동일하게 동작하는가
 

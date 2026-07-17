@@ -1,6 +1,6 @@
 # 로컬 Jekyll 미리보기 전용 (선택 사항, 배포 경로 아님 — 실제 배포는 GitHub Pages
-# "Deploy from branch: main/docs"가 담당한다). jekyll/jekyll 이미지 대신 이 컨테이너를
-# 쓰는 이유는 implement.md 7장 참고 (수년간 미갱신 + arm64 미지원 + 버전 불일치).
+# "Deploy from branch: main/docs"가 담당한다). jekyll/jekyll 공식 이미지 대신 이
+# 컨테이너를 쓰는 이유: 그 이미지는 수년간 미갱신 + arm64 미지원 + 버전 불일치 문제가 있다.
 #
 # 실행: docker compose -f docker/jekyll/docker-compose.yml up
 services:

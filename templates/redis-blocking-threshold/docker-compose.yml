@@ -1,4 +1,4 @@
-# TOPICS.md #1 / implement.md 10장 — Redis 단일 인스턴스는 초당 몇 건의 SET/GET
+# TOPICS.md #1 — Redis 단일 인스턴스는 초당 몇 건의 SET/GET
 # 요청부터 P99 레이턴시가 급격히(10배 이상) 튀는가?
 #
 # redis: 측정 대상. runner: redis-tools(redis-benchmark/redis-cli)를 추가 설치한
