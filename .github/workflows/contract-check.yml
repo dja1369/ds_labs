@@ -52,4 +52,7 @@ jobs:
       - run: |
           docker compose -f docker/runner/docker-compose.yml run --rm runner \
             python -m lib.chart --results "templates/$SLUG/results/results.json" --out "templates/$SLUG/results/charts/"
+      - run: |
+          docker compose -f docker/runner/docker-compose.yml run --rm runner \
+            python -m lib.check_report --structure "templates/$SLUG/README.template.md"
       - run: docker compose -f "templates/$SLUG/docker-compose.yml" down -v
