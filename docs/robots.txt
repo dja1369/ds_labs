@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dja1369.github.io/ds_labs/sitemap.xml
