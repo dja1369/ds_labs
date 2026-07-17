@@ -1,0 +1,60 @@
+name: docs-check
+on:
+  pull_request:
+    paths: ["docs/**", "experiments/**", "lib/publish_post.py", "lib/check_report.py", "lib/check_posts.py", ".github/workflows/**"]
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    outputs:
+      dirs: ${{ steps.diff.outputs.dirs }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - id: diff
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          # 변경된 experiments/<date>-<slug>/ 디렉터리 목록을 JSON 배열로 추출한다.
+          # contract-check.yml의 detect 잡과 동일한 이유로 GitHub 표현식 구문을
+          # run 스크립트 텍스트에 직접 꽂지 않고 env로만 넘긴다 — PR이 건드리는
+          # 값(브랜치명/경로)이 그대로 쉘 코드로 파싱되는 스크립트 인젝션을
+          # 막기 위함.
+          dirs=$(git diff --name-only "origin/$BASE_REF...HEAD" -- experiments/ \
+            | cut -d/ -f2 | sort -u | jq -R . | jq -sc .)
+          echo "dirs=$dirs" >> "$GITHUB_OUTPUT"
+
+  content-check:
+    needs: detect
+    if: needs.detect.outputs.dirs != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dir: ${{ fromJson(needs.detect.outputs.dirs) }}
+    env:
+      DIR: ${{ matrix.dir }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose -f docker/runner/docker-compose.yml build
+      - run: |
+          docker compose -f docker/runner/docker-compose.yml run --rm runner \
+            python -m lib.check_report --structure "experiments/$DIR/README.md"
+      - run: |
+          # agenda.md는 선택 파일이다 — 있을 때만 --agenda를 붙인다.
+          agenda_args=()
+          if [ -f "experiments/$DIR/agenda.md" ]; then
+            agenda_args=(--agenda "experiments/$DIR/agenda.md")
+          fi
+          docker compose -f docker/runner/docker-compose.yml run --rm runner \
+            python -m lib.check_report \
+              --content "experiments/$DIR/README.md" \
+              --results "experiments/$DIR/results/results.json" \
+              "${agenda_args[@]}"
+
+  posts-sanity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose -f docker/runner/docker-compose.yml build
+      - run: |
+          docker compose -f docker/runner/docker-compose.yml run --rm runner \
+            python -m lib.check_posts

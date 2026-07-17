@@ -7,11 +7,11 @@
 ## 안건
 ${QUESTION}
 
-## 요약
-${SUMMARY}
-
 ## 가설
 ${HYPOTHESIS}
+
+## 요약
+${SUMMARY}
 
 ## 구성
 ${SETUP}
@@ -22,8 +22,11 @@ ${METHOD}
 ## 결과
 ${RESULTS}
 
+## 발견 사항 및 분석
+${FINDINGS}
+
 ## 결론
 ${CONCLUSION}
 
-## 다음 연구 과제
+## 연관 연구 주제 제안
 ${NEXT_QUESTIONS}

@@ -22,10 +22,16 @@ Spring Boot 등 스택은 계속 늘어남.
 ## 지금 상태
 
 실행/검증/발행 파이프라인(3대 계약: 실행 진입점 · `results.json` · 문서 템플릿)
-다 돌아감. 첫 실전 실험(Redis)까지 끝냄. 아래는 그동안 기록.
+다 돌아감. 발행된 실험은 새 글이 올라올 때마다 아래 표에 자동으로 쌓임.
+
+| 제목 | 날짜 | 태그 |
+|---|---|---|
+{% for post in site.posts %}{% unless post.categories contains "meta" %}| [{{ post.title }}]({{ post.url | relative_url }}) | {{ post.date | date: "%Y-%m-%d" }} | {{ post.tags | join: ", " }} |
+{% endunless %}{% endfor %}
 
 ## 더 보기
 
 - [GitHub 저장소](https://github.com/dja1369/ds_labs) — 재현 코드 전체
 - [기여 가이드](https://github.com/dja1369/ds_labs/blob/main/CONTRIBUTING.md) — 새 실험 템플릿 추가 방법
 - [연구 안건 목록](https://github.com/dja1369/ds_labs/blob/main/TOPICS.md) — 다음 실험 후보
+- [태그별로 보기]({{ '/tags/' | relative_url }}) — 실험을 태그로 훑어보기

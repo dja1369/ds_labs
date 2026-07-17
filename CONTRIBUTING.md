@@ -54,6 +54,7 @@ docker compose -f docker/runner/docker-compose.yml run --rm runner python -m lib
 - [ ] `docker compose ... down -v` 이후 `docker ps -a`에 잔여 컨테이너가 없는가
 - [ ] `TEMPLATE.md`에 기술/전제조건/사용 예시가 있는가
 - [ ] base image가 `docker manifest inspect`로 linux/amd64·linux/arm64 모두 확인되는가
+- [ ] `experiment.sh`가 클라이언트가 보는 부하 지표(P99 등)뿐 아니라 대상 시스템 자체가 "얼마나 바빴는가" 신호(CPU 사용률, 명령 처리 시간 등)도 같이 측정하는가(능동적 계측) — `redis-blocking-threshold`의 발견 사항 및 분석은 이 둘을 나란히 찍어서야 "서버는 안 바빴다"는 진짜 원인을 잡아냈다
 
 ## 5. 크로스플랫폼 검증 방법
 
