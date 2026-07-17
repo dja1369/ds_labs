@@ -1,0 +1,96 @@
+---
+layout: default
+---
+<article class="post h-entry" itemscope itemtype="http://schema.org/CreativeWork">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {%- assign date_format = site.minima.date_format | default: "%Y-%m-%d" -%}
+        {{ page.date | date: date_format }}
+      </time>
+      {%- if page.author -%}
+        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
+      {%- endif -%}
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+  {%- if page.run_id -%}
+  {%- assign post_slug = page.path | split: "/" | last | replace: ".md", "" -%}
+  <aside class="repro-info">
+    <h2>재현 정보</h2>
+    <dl>
+      <dt>run_id</dt>
+      <dd><code>{{ page.run_id }}</code></dd>
+
+      {%- if page.experiment_url %}
+      <dt>실험 소스</dt>
+      <dd><a href="{{ page.experiment_url }}">{{ page.experiment_url }}</a></dd>
+      {%- endif %}
+
+      {%- if page.environment %}
+      <dt>실행 환경</dt>
+      <dd>{{ page.environment.arch }} · {{ page.environment.cpu_cores }} core · {{ page.environment.memory_gb }}GB</dd>
+      {%- endif %}
+
+      {%- if page.data_files and page.data_files.size > 0 %}
+      <dt>원시 데이터</dt>
+      <dd>
+        {%- for f in page.data_files -%}
+          <a href="{{ '/assets/data/' | append: post_slug | append: '/' | append: f | relative_url }}"><code>{{ f }}</code></a>{% unless forloop.last %} · {% endunless %}
+        {%- endfor -%}
+      </dd>
+      {%- endif %}
+    </dl>
+  </aside>
+  {%- endif %}
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+
+</article>
+
+<style>
+  /* 재현 정보 박스 — main.scss의 blockquote/code 톤(보라 포인트 + 연보라 배경/테두리)을
+     그대로 재사용한다: 브랜드 컬러 #7c3aed, 테두리 #e7e5f0, 배경 #f7f6fb. */
+  .repro-info {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background-color: #f7f6fb;
+    border: 1px solid #e7e5f0;
+    border-left: 4px solid #7c3aed;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .repro-info h2 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: #7c3aed;
+  }
+
+  .repro-info dl {
+    margin: 0;
+  }
+
+  .repro-info dt {
+    font-weight: 700;
+    color: #4b4d57;
+  }
+
+  .repro-info dd {
+    margin: 0 0 0.75rem 0;
+  }
+
+  .repro-info dd:last-child {
+    margin-bottom: 0;
+  }
+
+  .repro-info code {
+    font-size: 0.9em;
+  }
+</style>

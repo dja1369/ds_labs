@@ -2,6 +2,7 @@
 layout: post
 title: Redis에 요청을 얼마나 넣으면 터질까?
 date: 2026-07-15 09:34:09 +0000
+image: /assets/images/2026-07-15-redis-blocking-threshold/p99_latency_ms.png
 categories:
 - redis
 - performance
@@ -13,6 +14,13 @@ tags:
 experiment_id: redis-blocking-threshold
 experiment_url: https://github.com/dja1369/ds_labs/tree/main/experiments/2026-07-15-redis-blocking-threshold
 run_id: 2026-07-15T09-34-09Z-a26cef48
+environment:
+  arch: aarch64
+  cpu_cores: 2
+  memory_gb: 3.8
+data_files:
+- results.json
+- results.csv
 ---
 
 ## 안건
@@ -83,7 +91,7 @@ Redis는 단일 스레드 이벤트 루프이므로, concurrency가 baseline(최
 | 2000 | 13.239 | 18.015 | 128,370 | 129,199 |
 | 4000 | 47.103 | 20.047 | 125,000 | 131,926 |
 
-(전체 원시 수치는 [`results/results.json`](results/results.json) 참고.)
+(전체 원시 수치는 [`results/results.json`]({{ '/assets/data/2026-07-15-redis-blocking-threshold/results.json' | relative_url }}) 참고.)
 
 ## 발견 사항 및 분석
 
