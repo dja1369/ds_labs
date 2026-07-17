@@ -1,64 +1,73 @@
 metric,series,x_label,x,y,unit,note
-throughput_ops_sec,SET,concurrency,1,21725.0,ops/sec,
-p99_latency_ms,SET,concurrency,1,0.071,ms,
-throughput_ops_sec,GET,concurrency,1,21739.1,ops/sec,
-p99_latency_ms,GET,concurrency,1,0.071,ms,
-throughput_ops_sec,SET,concurrency,10,194552.5,ops/sec,
-p99_latency_ms,SET,concurrency,10,0.095,ms,
-throughput_ops_sec,GET,concurrency,10,210970.5,ops/sec,
-p99_latency_ms,GET,concurrency,10,0.087,ms,
-throughput_ops_sec,SET,concurrency,50,196463.7,ops/sec,
-p99_latency_ms,SET,concurrency,50,0.383,ms,
-throughput_ops_sec,GET,concurrency,50,201207.2,ops/sec,
-p99_latency_ms,GET,concurrency,50,0.335,ms,
-throughput_ops_sec,SET,concurrency,100,191938.6,ops/sec,
-p99_latency_ms,SET,concurrency,100,0.487,ms,
-throughput_ops_sec,GET,concurrency,100,182815.4,ops/sec,
-p99_latency_ms,GET,concurrency,100,0.447,ms,
-throughput_ops_sec,SET,concurrency,250,158227.8,ops/sec,
-p99_latency_ms,SET,concurrency,250,1.599,ms,
-throughput_ops_sec,GET,concurrency,250,161030.6,ops/sec,
-p99_latency_ms,GET,concurrency,250,1.367,ms,
-throughput_ops_sec,SET,concurrency,500,146627.6,ops/sec,
-p99_latency_ms,SET,concurrency,500,3.335,ms,
-throughput_ops_sec,GET,concurrency,500,144927.5,ops/sec,
-p99_latency_ms,GET,concurrency,500,3.439,ms,
-throughput_ops_sec,SET,concurrency,1000,132626.0,ops/sec,
-p99_latency_ms,SET,concurrency,1000,5.151,ms,
-throughput_ops_sec,GET,concurrency,1000,130548.3,ops/sec,
-p99_latency_ms,GET,concurrency,1000,7.807,ms,
-throughput_ops_sec,SET,concurrency,2000,128369.7,ops/sec,
-p99_latency_ms,SET,concurrency,2000,13.239,ms,
-throughput_ops_sec,GET,concurrency,2000,129199.0,ops/sec,
-p99_latency_ms,GET,concurrency,2000,18.015,ms,
-throughput_ops_sec,SET,concurrency,4000,125000.0,ops/sec,
-p99_latency_ms,SET,concurrency,4000,47.103,ms,
-throughput_ops_sec,GET,concurrency,4000,131926.1,ops/sec,
-p99_latency_ms,GET,concurrency,4000,20.047,ms,
-redis_cpu_utilization_pct,,concurrency,1,7.6,%,
-usec_per_call,SET,concurrency,1,0.75,usec,
-usec_per_call,GET,concurrency,1,0.53,usec,
-redis_cpu_utilization_pct,,concurrency,10,19.4,%,
-usec_per_call,SET,concurrency,10,0.31,usec,
-usec_per_call,GET,concurrency,10,0.25,usec,
-redis_cpu_utilization_pct,,concurrency,50,16.7,%,
-usec_per_call,SET,concurrency,50,0.3,usec,
-usec_per_call,GET,concurrency,50,0.27,usec,
-redis_cpu_utilization_pct,,concurrency,100,14.5,%,
-usec_per_call,SET,concurrency,100,0.33,usec,
-usec_per_call,GET,concurrency,100,0.28,usec,
-redis_cpu_utilization_pct,,concurrency,250,10.9,%,
-usec_per_call,SET,concurrency,250,0.38,usec,
-usec_per_call,GET,concurrency,250,0.32,usec,
-redis_cpu_utilization_pct,,concurrency,500,8.6,%,
-usec_per_call,SET,concurrency,500,0.4,usec,
-usec_per_call,GET,concurrency,500,0.35,usec,
-redis_cpu_utilization_pct,,concurrency,1000,6.7,%,
-usec_per_call,SET,concurrency,1000,0.44,usec,
-usec_per_call,GET,concurrency,1000,0.38,usec,
-redis_cpu_utilization_pct,,concurrency,2000,5.6,%,
-usec_per_call,SET,concurrency,2000,0.46,usec,
-usec_per_call,GET,concurrency,2000,0.39,usec,
-redis_cpu_utilization_pct,,concurrency,4000,3.5,%,
-usec_per_call,SET,concurrency,4000,0.48,usec,
-usec_per_call,GET,concurrency,4000,0.37,usec,
+throughput_ops_sec,GET,concurrency,1,22825.8,ops/sec,3회 반복 중앙값 (범위 19880.7~23078.7 ops/sec)
+p99_latency_ms,GET,concurrency,1,0.087,ms,3회 반복 중앙값 (범위 0.079~0.143 ms)
+throughput_ops_sec,SET,concurrency,1,23792.5,ops/sec,3회 반복 중앙값 (범위 20811.7~24396.2 ops/sec)
+p99_latency_ms,SET,concurrency,1,0.087,ms,3회 반복 중앙값 (범위 0.079~0.095 ms)
+throughput_ops_sec,GET,concurrency,10,199600.8,ops/sec,3회 반복 중앙값 (범위 181488.2~202429.2 ops/sec)
+p99_latency_ms,GET,concurrency,10,0.095,ms,3회 반복 중앙값 (범위 0.087~0.111 ms)
+throughput_ops_sec,SET,concurrency,10,191570.9,ops/sec,3회 반복 중앙값 (범위 184501.8~194174.8 ops/sec)
+p99_latency_ms,SET,concurrency,10,0.095,ms,3회 반복 중앙값 (범위 0.095~0.111 ms)
+throughput_ops_sec,GET,concurrency,50,183823.5,ops/sec,3회 반복 중앙값 (범위 179533.2~185185.2 ops/sec)
+p99_latency_ms,GET,concurrency,50,0.591,ms,3회 반복 중앙값 (범위 0.567~0.623 ms)
+throughput_ops_sec,SET,concurrency,50,183486.2,ops/sec,3회 반복 중앙값 (범위 182149.4~187969.9 ops/sec)
+p99_latency_ms,SET,concurrency,50,0.567,ms,3회 반복 중앙값 (범위 0.263~0.679 ms)
+throughput_ops_sec,GET,concurrency,100,175438.6,ops/sec,3회 반복 중앙값 (범위 173611.1~181818.2 ops/sec)
+p99_latency_ms,GET,concurrency,100,0.543,ms,3회 반복 중앙값 (범위 0.471~0.935 ms)
+throughput_ops_sec,SET,concurrency,100,176366.9,ops/sec,3회 반복 중앙값 (범위 172413.8~178253.1 ops/sec)
+p99_latency_ms,SET,concurrency,100,0.567,ms,3회 반복 중앙값 (범위 0.487~0.783 ms)
+throughput_ops_sec,GET,concurrency,250,159235.7,ops/sec,3회 반복 중앙값 (범위 156985.9~159235.7 ops/sec)
+p99_latency_ms,GET,concurrency,250,1.183,ms,3회 반복 중앙값 (범위 1.143~1.487 ms)
+throughput_ops_sec,SET,concurrency,250,156006.2,ops/sec,3회 반복 중앙값 (범위 153609.8~165562.9 ops/sec)
+p99_latency_ms,SET,concurrency,250,1.271,ms,3회 반복 중앙값 (범위 1.087~2.047 ms)
+throughput_ops_sec,GET,concurrency,500,147929.0,ops/sec,3회 반복 중앙값 (범위 140252.5~149253.7 ops/sec)
+p99_latency_ms,GET,concurrency,500,2.879,ms,3회 반복 중앙값 (범위 2.599~3.703 ms)
+throughput_ops_sec,SET,concurrency,500,146627.6,ops/sec,3회 반복 중앙값 (범위 143884.9~147275.4 ops/sec)
+p99_latency_ms,SET,concurrency,500,3.887,ms,3회 반복 중앙값 (범위 3.367~4.839 ms)
+throughput_ops_sec,GET,concurrency,1000,137741.0,ops/sec,3회 반복 중앙값 (범위 136239.8~140647.0 ops/sec)
+p99_latency_ms,GET,concurrency,1000,8.327,ms,3회 반복 중앙값 (범위 7.575~10.399 ms)
+throughput_ops_sec,SET,concurrency,1000,136612.0,ops/sec,3회 반복 중앙값 (범위 132802.1~138504.2 ops/sec)
+p99_latency_ms,SET,concurrency,1000,7.999,ms,3회 반복 중앙값 (범위 7.023~12.927 ms)
+throughput_ops_sec,GET,concurrency,2000,131926.1,ops/sec,3회 반복 중앙값 (범위 128700.1~137174.2 ops/sec)
+p99_latency_ms,GET,concurrency,2000,9.887,ms,3회 반복 중앙값 (범위 9.559~10.791 ms)
+throughput_ops_sec,SET,concurrency,2000,133868.8,ops/sec,3회 반복 중앙값 (범위 132450.3~134408.6 ops/sec)
+p99_latency_ms,SET,concurrency,2000,13.047,ms,3회 반복 중앙값 (범위 11.183~13.143 ms)
+throughput_ops_sec,GET,concurrency,4000,133868.8,ops/sec,3회 반복 중앙값 (범위 118203.3~140845.1 ops/sec)
+p99_latency_ms,GET,concurrency,4000,38.367,ms,3회 반복 중앙값 (범위 18.751~43.839 ms)
+throughput_ops_sec,SET,concurrency,4000,125470.5,ops/sec,3회 반복 중앙값 (범위 123304.6~134408.6 ops/sec)
+p99_latency_ms,SET,concurrency,4000,32.351,ms,3회 반복 중앙값 (범위 25.551~39.647 ms)
+redis_cpu_utilization_pct,,concurrency,1,6.2,%,3회 반복 중앙값 (범위 6.1~7.5)
+usec_per_call,SET,concurrency,1,0.61,usec,3회 반복 중앙값 (범위 0.61~0.82)
+usec_per_call,GET,concurrency,1,0.51,usec,3회 반복 중앙값 (범위 0.47~0.55)
+runner_cpu_utilization_pct,,concurrency,1,40.9,%,3회 반복 중앙값 (범위 40.8~42.6)
+redis_cpu_utilization_pct,,concurrency,10,17.0,%,3회 반복 중앙값 (범위 14.6~17.1)
+usec_per_call,SET,concurrency,10,0.31,usec,3회 반복 중앙값 (범위 0.31~0.33)
+usec_per_call,GET,concurrency,10,0.26,usec,3회 반복 중앙값 (범위 0.26~0.27)
+runner_cpu_utilization_pct,,concurrency,10,97.1,%,3회 반복 중앙값 (범위 95.0~97.6)
+redis_cpu_utilization_pct,,concurrency,50,14.7,%,3회 반복 중앙값 (범위 14.6~17.1)
+usec_per_call,SET,concurrency,50,0.32,usec,3회 반복 중앙값 (범위 0.31~0.32)
+usec_per_call,GET,concurrency,50,0.27,usec,3회 반복 중앙값 (범위 0.26~0.27)
+runner_cpu_utilization_pct,,concurrency,50,96.4,%,3회 반복 중앙값 (범위 95.6~97.7)
+redis_cpu_utilization_pct,,concurrency,100,13.8,%,3회 반복 중앙값 (범위 13.7~14.6)
+usec_per_call,SET,concurrency,100,0.35,usec,3회 반복 중앙값 (범위 0.34~0.36)
+usec_per_call,GET,concurrency,100,0.3,usec,3회 반복 중앙값 (범위 0.28~0.30)
+runner_cpu_utilization_pct,,concurrency,100,89.1,%,3회 반복 중앙값 (범위 88.4~89.6)
+redis_cpu_utilization_pct,,concurrency,250,10.0,%,3회 반복 중앙값 (범위 9.7~10.5)
+usec_per_call,SET,concurrency,250,0.38,usec,3회 반복 중앙값 (범위 0.36~0.40)
+usec_per_call,GET,concurrency,250,0.32,usec,3회 반복 중앙값 (범위 0.31~0.32)
+runner_cpu_utilization_pct,,concurrency,250,77.4,%,3회 반복 중앙값 (범위 76.6~77.6)
+redis_cpu_utilization_pct,,concurrency,500,9.3,%,3회 반복 중앙값 (범위 8.1~9.5)
+usec_per_call,SET,concurrency,500,0.42,usec,3회 반복 중앙값 (범위 0.40~0.42)
+usec_per_call,GET,concurrency,500,0.36,usec,3회 반복 중앙값 (범위 0.35~0.39)
+runner_cpu_utilization_pct,,concurrency,500,63.2,%,3회 반복 중앙값 (범위 63.0~63.4)
+redis_cpu_utilization_pct,,concurrency,1000,6.3,%,3회 반복 중앙값 (범위 6.0~6.7)
+usec_per_call,SET,concurrency,1000,0.43,usec,3회 반복 중앙값 (범위 0.43~0.51)
+usec_per_call,GET,concurrency,1000,0.39,usec,3회 반복 중앙값 (범위 0.38~0.43)
+runner_cpu_utilization_pct,,concurrency,1000,48.9,%,3회 반복 중앙값 (범위 48.5~49.6)
+redis_cpu_utilization_pct,,concurrency,2000,3.8,%,3회 반복 중앙값 (범위 3.3~4.4)
+usec_per_call,SET,concurrency,2000,0.47,usec,3회 반복 중앙값 (범위 0.45~0.50)
+usec_per_call,GET,concurrency,2000,0.42,usec,3회 반복 중앙값 (범위 0.38~0.42)
+runner_cpu_utilization_pct,,concurrency,2000,38.1,%,3회 반복 중앙값 (범위 37.8~38.2)
+redis_cpu_utilization_pct,,concurrency,4000,3.4,%,3회 반복 중앙값 (범위 2.4~4.1)
+usec_per_call,SET,concurrency,4000,0.52,usec,3회 반복 중앙값 (범위 0.43~0.53)
+usec_per_call,GET,concurrency,4000,0.45,usec,3회 반복 중앙값 (범위 0.35~0.46)
+runner_cpu_utilization_pct,,concurrency,4000,30.5,%,3회 반복 중앙값 (범위 29.8~33.3)
