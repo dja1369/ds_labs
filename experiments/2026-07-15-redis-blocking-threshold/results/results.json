@@ -4,12 +4,12 @@
     "id": "redis-blocking-threshold",
     "agenda": "Redis 단일 인스턴스는 초당 몇 건의 SET/GET 요청부터 P99 레이턴시가 급격히(10배 이상) 튀며 이벤트 루프가 포화 상태에 진입하는가?",
     "template": "redis-blocking-threshold",
-    "template_version": "1.0.0"
+    "template_version": "1.1.0"
   },
   "run": {
-    "run_id": "2026-07-15T09-34-09Z-a26cef48",
-    "started_at": "2026-07-15T09:34:09Z",
-    "finished_at": "2026-07-15T09:34:45Z",
+    "run_id": "2026-07-17T04-38-09Z-4443e76a",
+    "started_at": "2026-07-17T04:38:09Z",
+    "finished_at": "2026-07-17T04:40:06Z",
     "smoke": false,
     "environment": {
       "arch": "aarch64",
@@ -30,53 +30,72 @@
       4000
     ],
     "requests_per_step": 100000,
-    "sla_multiplier": 10.0
+    "sla_multiplier": 10.0,
+    "repeats": 3
   },
   "data": [
     {
       "metric": "throughput_ops_sec",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 1,
+      "y": 22825.8,
+      "unit": "ops/sec",
+      "note": "3회 반복 중앙값 (범위 19880.7~23078.7 ops/sec)"
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 1,
+      "y": 0.087,
+      "unit": "ms",
+      "note": "3회 반복 중앙값 (범위 0.079~0.143 ms)"
+    },
+    {
+      "metric": "throughput_ops_sec",
       "series": "SET",
       "x_label": "concurrency",
       "x": 1,
-      "y": 21725.0,
+      "y": 23792.5,
       "unit": "ops/sec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 20811.7~24396.2 ops/sec)"
     },
     {
       "metric": "p99_latency_ms",
       "series": "SET",
       "x_label": "concurrency",
       "x": 1,
-      "y": 0.071,
+      "y": 0.087,
       "unit": "ms",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.079~0.095 ms)"
     },
     {
       "metric": "throughput_ops_sec",
       "series": "GET",
       "x_label": "concurrency",
-      "x": 1,
-      "y": 21739.1,
+      "x": 10,
+      "y": 199600.8,
       "unit": "ops/sec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 181488.2~202429.2 ops/sec)"
     },
     {
       "metric": "p99_latency_ms",
       "series": "GET",
       "x_label": "concurrency",
-      "x": 1,
-      "y": 0.071,
+      "x": 10,
+      "y": 0.095,
       "unit": "ms",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.087~0.111 ms)"
     },
     {
       "metric": "throughput_ops_sec",
       "series": "SET",
       "x_label": "concurrency",
       "x": 10,
-      "y": 194552.5,
+      "y": 191570.9,
       "unit": "ops/sec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 184501.8~194174.8 ops/sec)"
     },
     {
       "metric": "p99_latency_ms",
@@ -85,133 +104,133 @@
       "x": 10,
       "y": 0.095,
       "unit": "ms",
-      "note": null
-    },
-    {
-      "metric": "throughput_ops_sec",
-      "series": "GET",
-      "x_label": "concurrency",
-      "x": 10,
-      "y": 210970.5,
-      "unit": "ops/sec",
-      "note": null
-    },
-    {
-      "metric": "p99_latency_ms",
-      "series": "GET",
-      "x_label": "concurrency",
-      "x": 10,
-      "y": 0.087,
-      "unit": "ms",
-      "note": null
-    },
-    {
-      "metric": "throughput_ops_sec",
-      "series": "SET",
-      "x_label": "concurrency",
-      "x": 50,
-      "y": 196463.7,
-      "unit": "ops/sec",
-      "note": null
-    },
-    {
-      "metric": "p99_latency_ms",
-      "series": "SET",
-      "x_label": "concurrency",
-      "x": 50,
-      "y": 0.383,
-      "unit": "ms",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.095~0.111 ms)"
     },
     {
       "metric": "throughput_ops_sec",
       "series": "GET",
       "x_label": "concurrency",
       "x": 50,
-      "y": 201207.2,
+      "y": 183823.5,
       "unit": "ops/sec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 179533.2~185185.2 ops/sec)"
     },
     {
       "metric": "p99_latency_ms",
       "series": "GET",
       "x_label": "concurrency",
       "x": 50,
-      "y": 0.335,
+      "y": 0.591,
       "unit": "ms",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.567~0.623 ms)"
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 50,
+      "y": 183486.2,
+      "unit": "ops/sec",
+      "note": "3회 반복 중앙값 (범위 182149.4~187969.9 ops/sec)"
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 50,
+      "y": 0.567,
+      "unit": "ms",
+      "note": "3회 반복 중앙값 (범위 0.263~0.679 ms)"
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 100,
+      "y": 175438.6,
+      "unit": "ops/sec",
+      "note": "3회 반복 중앙값 (범위 173611.1~181818.2 ops/sec)"
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 100,
+      "y": 0.543,
+      "unit": "ms",
+      "note": "3회 반복 중앙값 (범위 0.471~0.935 ms)"
     },
     {
       "metric": "throughput_ops_sec",
       "series": "SET",
       "x_label": "concurrency",
       "x": 100,
-      "y": 191938.6,
+      "y": 176366.9,
       "unit": "ops/sec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 172413.8~178253.1 ops/sec)"
     },
     {
       "metric": "p99_latency_ms",
       "series": "SET",
       "x_label": "concurrency",
       "x": 100,
-      "y": 0.487,
+      "y": 0.567,
       "unit": "ms",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.487~0.783 ms)"
     },
     {
       "metric": "throughput_ops_sec",
       "series": "GET",
       "x_label": "concurrency",
-      "x": 100,
-      "y": 182815.4,
+      "x": 250,
+      "y": 159235.7,
       "unit": "ops/sec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 156985.9~159235.7 ops/sec)"
     },
     {
       "metric": "p99_latency_ms",
       "series": "GET",
       "x_label": "concurrency",
-      "x": 100,
-      "y": 0.447,
+      "x": 250,
+      "y": 1.183,
       "unit": "ms",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 1.143~1.487 ms)"
     },
     {
       "metric": "throughput_ops_sec",
       "series": "SET",
       "x_label": "concurrency",
       "x": 250,
-      "y": 158227.8,
+      "y": 156006.2,
       "unit": "ops/sec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 153609.8~165562.9 ops/sec)"
     },
     {
       "metric": "p99_latency_ms",
       "series": "SET",
       "x_label": "concurrency",
       "x": 250,
-      "y": 1.599,
+      "y": 1.271,
       "unit": "ms",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 1.087~2.047 ms)"
     },
     {
       "metric": "throughput_ops_sec",
       "series": "GET",
       "x_label": "concurrency",
-      "x": 250,
-      "y": 161030.6,
+      "x": 500,
+      "y": 147929.0,
       "unit": "ops/sec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 140252.5~149253.7 ops/sec)"
     },
     {
       "metric": "p99_latency_ms",
       "series": "GET",
       "x_label": "concurrency",
-      "x": 250,
-      "y": 1.367,
+      "x": 500,
+      "y": 2.879,
       "unit": "ms",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 2.599~3.703 ms)"
     },
     {
       "metric": "throughput_ops_sec",
@@ -220,178 +239,169 @@
       "x": 500,
       "y": 146627.6,
       "unit": "ops/sec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 143884.9~147275.4 ops/sec)"
     },
     {
       "metric": "p99_latency_ms",
       "series": "SET",
       "x_label": "concurrency",
       "x": 500,
-      "y": 3.335,
+      "y": 3.887,
       "unit": "ms",
-      "note": null
-    },
-    {
-      "metric": "throughput_ops_sec",
-      "series": "GET",
-      "x_label": "concurrency",
-      "x": 500,
-      "y": 144927.5,
-      "unit": "ops/sec",
-      "note": null
-    },
-    {
-      "metric": "p99_latency_ms",
-      "series": "GET",
-      "x_label": "concurrency",
-      "x": 500,
-      "y": 3.439,
-      "unit": "ms",
-      "note": null
-    },
-    {
-      "metric": "throughput_ops_sec",
-      "series": "SET",
-      "x_label": "concurrency",
-      "x": 1000,
-      "y": 132626.0,
-      "unit": "ops/sec",
-      "note": null
-    },
-    {
-      "metric": "p99_latency_ms",
-      "series": "SET",
-      "x_label": "concurrency",
-      "x": 1000,
-      "y": 5.151,
-      "unit": "ms",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 3.367~4.839 ms)"
     },
     {
       "metric": "throughput_ops_sec",
       "series": "GET",
       "x_label": "concurrency",
       "x": 1000,
-      "y": 130548.3,
+      "y": 137741.0,
       "unit": "ops/sec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 136239.8~140647.0 ops/sec)"
     },
     {
       "metric": "p99_latency_ms",
       "series": "GET",
       "x_label": "concurrency",
       "x": 1000,
-      "y": 7.807,
+      "y": 8.327,
       "unit": "ms",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 7.575~10.399 ms)"
     },
     {
       "metric": "throughput_ops_sec",
       "series": "SET",
       "x_label": "concurrency",
-      "x": 2000,
-      "y": 128369.7,
+      "x": 1000,
+      "y": 136612.0,
       "unit": "ops/sec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 132802.1~138504.2 ops/sec)"
     },
     {
       "metric": "p99_latency_ms",
       "series": "SET",
       "x_label": "concurrency",
-      "x": 2000,
-      "y": 13.239,
+      "x": 1000,
+      "y": 7.999,
       "unit": "ms",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 7.023~12.927 ms)"
     },
     {
       "metric": "throughput_ops_sec",
       "series": "GET",
       "x_label": "concurrency",
       "x": 2000,
-      "y": 129199.0,
-      "unit": "ops/sec",
-      "note": null
-    },
-    {
-      "metric": "p99_latency_ms",
-      "series": "GET",
-      "x_label": "concurrency",
-      "x": 2000,
-      "y": 18.015,
-      "unit": "ms",
-      "note": null
-    },
-    {
-      "metric": "throughput_ops_sec",
-      "series": "SET",
-      "x_label": "concurrency",
-      "x": 4000,
-      "y": 125000.0,
-      "unit": "ops/sec",
-      "note": null
-    },
-    {
-      "metric": "p99_latency_ms",
-      "series": "SET",
-      "x_label": "concurrency",
-      "x": 4000,
-      "y": 47.103,
-      "unit": "ms",
-      "note": null
-    },
-    {
-      "metric": "throughput_ops_sec",
-      "series": "GET",
-      "x_label": "concurrency",
-      "x": 4000,
       "y": 131926.1,
       "unit": "ops/sec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 128700.1~137174.2 ops/sec)"
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 9.887,
+      "unit": "ms",
+      "note": "3회 반복 중앙값 (범위 9.559~10.791 ms)"
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 133868.8,
+      "unit": "ops/sec",
+      "note": "3회 반복 중앙값 (범위 132450.3~134408.6 ops/sec)"
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 13.047,
+      "unit": "ms",
+      "note": "3회 반복 중앙값 (범위 11.183~13.143 ms)"
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 4000,
+      "y": 133868.8,
+      "unit": "ops/sec",
+      "note": "3회 반복 중앙값 (범위 118203.3~140845.1 ops/sec)"
     },
     {
       "metric": "p99_latency_ms",
       "series": "GET",
       "x_label": "concurrency",
       "x": 4000,
-      "y": 20.047,
+      "y": 38.367,
       "unit": "ms",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 18.751~43.839 ms)"
+    },
+    {
+      "metric": "throughput_ops_sec",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 4000,
+      "y": 125470.5,
+      "unit": "ops/sec",
+      "note": "3회 반복 중앙값 (범위 123304.6~134408.6 ops/sec)"
+    },
+    {
+      "metric": "p99_latency_ms",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 4000,
+      "y": 32.351,
+      "unit": "ms",
+      "note": "3회 반복 중앙값 (범위 25.551~39.647 ms)"
     },
     {
       "metric": "redis_cpu_utilization_pct",
       "series": null,
       "x_label": "concurrency",
       "x": 1,
-      "y": 7.6,
+      "y": 6.2,
       "unit": "%",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 6.1~7.5)"
     },
     {
       "metric": "usec_per_call",
       "series": "SET",
       "x_label": "concurrency",
       "x": 1,
-      "y": 0.75,
+      "y": 0.61,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.61~0.82)"
     },
     {
       "metric": "usec_per_call",
       "series": "GET",
       "x_label": "concurrency",
       "x": 1,
-      "y": 0.53,
+      "y": 0.51,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.47~0.55)"
+    },
+    {
+      "metric": "runner_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 1,
+      "y": 40.9,
+      "unit": "%",
+      "note": "3회 반복 중앙값 (범위 40.8~42.6)"
     },
     {
       "metric": "redis_cpu_utilization_pct",
       "series": null,
       "x_label": "concurrency",
       "x": 10,
-      "y": 19.4,
+      "y": 17.0,
       "unit": "%",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 14.6~17.1)"
     },
     {
       "metric": "usec_per_call",
@@ -400,34 +410,43 @@
       "x": 10,
       "y": 0.31,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.31~0.33)"
     },
     {
       "metric": "usec_per_call",
       "series": "GET",
       "x_label": "concurrency",
       "x": 10,
-      "y": 0.25,
+      "y": 0.26,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.26~0.27)"
+    },
+    {
+      "metric": "runner_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 10,
+      "y": 97.1,
+      "unit": "%",
+      "note": "3회 반복 중앙값 (범위 95.0~97.6)"
     },
     {
       "metric": "redis_cpu_utilization_pct",
       "series": null,
       "x_label": "concurrency",
       "x": 50,
-      "y": 16.7,
+      "y": 14.7,
       "unit": "%",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 14.6~17.1)"
     },
     {
       "metric": "usec_per_call",
       "series": "SET",
       "x_label": "concurrency",
       "x": 50,
-      "y": 0.3,
+      "y": 0.32,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.31~0.32)"
     },
     {
       "metric": "usec_per_call",
@@ -436,43 +455,61 @@
       "x": 50,
       "y": 0.27,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.26~0.27)"
+    },
+    {
+      "metric": "runner_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 50,
+      "y": 96.4,
+      "unit": "%",
+      "note": "3회 반복 중앙값 (범위 95.6~97.7)"
     },
     {
       "metric": "redis_cpu_utilization_pct",
       "series": null,
       "x_label": "concurrency",
       "x": 100,
-      "y": 14.5,
+      "y": 13.8,
       "unit": "%",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 13.7~14.6)"
     },
     {
       "metric": "usec_per_call",
       "series": "SET",
       "x_label": "concurrency",
       "x": 100,
-      "y": 0.33,
+      "y": 0.35,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.34~0.36)"
     },
     {
       "metric": "usec_per_call",
       "series": "GET",
       "x_label": "concurrency",
       "x": 100,
-      "y": 0.28,
+      "y": 0.3,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.28~0.30)"
+    },
+    {
+      "metric": "runner_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 100,
+      "y": 89.1,
+      "unit": "%",
+      "note": "3회 반복 중앙값 (범위 88.4~89.6)"
     },
     {
       "metric": "redis_cpu_utilization_pct",
       "series": null,
       "x_label": "concurrency",
       "x": 250,
-      "y": 10.9,
+      "y": 10.0,
       "unit": "%",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 9.7~10.5)"
     },
     {
       "metric": "usec_per_call",
@@ -481,7 +518,7 @@
       "x": 250,
       "y": 0.38,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.36~0.40)"
     },
     {
       "metric": "usec_per_call",
@@ -490,121 +527,167 @@
       "x": 250,
       "y": 0.32,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.31~0.32)"
+    },
+    {
+      "metric": "runner_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 250,
+      "y": 77.4,
+      "unit": "%",
+      "note": "3회 반복 중앙값 (범위 76.6~77.6)"
     },
     {
       "metric": "redis_cpu_utilization_pct",
       "series": null,
       "x_label": "concurrency",
       "x": 500,
-      "y": 8.6,
+      "y": 9.3,
       "unit": "%",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 8.1~9.5)"
     },
     {
       "metric": "usec_per_call",
       "series": "SET",
       "x_label": "concurrency",
       "x": 500,
-      "y": 0.4,
+      "y": 0.42,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.40~0.42)"
     },
     {
       "metric": "usec_per_call",
       "series": "GET",
       "x_label": "concurrency",
       "x": 500,
-      "y": 0.35,
+      "y": 0.36,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.35~0.39)"
+    },
+    {
+      "metric": "runner_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 500,
+      "y": 63.2,
+      "unit": "%",
+      "note": "3회 반복 중앙값 (범위 63.0~63.4)"
     },
     {
       "metric": "redis_cpu_utilization_pct",
       "series": null,
       "x_label": "concurrency",
       "x": 1000,
-      "y": 6.7,
+      "y": 6.3,
       "unit": "%",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 6.0~6.7)"
     },
     {
       "metric": "usec_per_call",
       "series": "SET",
       "x_label": "concurrency",
       "x": 1000,
-      "y": 0.44,
+      "y": 0.43,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.43~0.51)"
     },
     {
       "metric": "usec_per_call",
       "series": "GET",
       "x_label": "concurrency",
       "x": 1000,
-      "y": 0.38,
-      "unit": "usec",
-      "note": null
-    },
-    {
-      "metric": "redis_cpu_utilization_pct",
-      "series": null,
-      "x_label": "concurrency",
-      "x": 2000,
-      "y": 5.6,
-      "unit": "%",
-      "note": null
-    },
-    {
-      "metric": "usec_per_call",
-      "series": "SET",
-      "x_label": "concurrency",
-      "x": 2000,
-      "y": 0.46,
-      "unit": "usec",
-      "note": null
-    },
-    {
-      "metric": "usec_per_call",
-      "series": "GET",
-      "x_label": "concurrency",
-      "x": 2000,
       "y": 0.39,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.38~0.43)"
+    },
+    {
+      "metric": "runner_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 1000,
+      "y": 48.9,
+      "unit": "%",
+      "note": "3회 반복 중앙값 (범위 48.5~49.6)"
+    },
+    {
+      "metric": "redis_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 3.8,
+      "unit": "%",
+      "note": "3회 반복 중앙값 (범위 3.3~4.4)"
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "SET",
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 0.47,
+      "unit": "usec",
+      "note": "3회 반복 중앙값 (범위 0.45~0.50)"
+    },
+    {
+      "metric": "usec_per_call",
+      "series": "GET",
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 0.42,
+      "unit": "usec",
+      "note": "3회 반복 중앙값 (범위 0.38~0.42)"
+    },
+    {
+      "metric": "runner_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 2000,
+      "y": 38.1,
+      "unit": "%",
+      "note": "3회 반복 중앙값 (범위 37.8~38.2)"
     },
     {
       "metric": "redis_cpu_utilization_pct",
       "series": null,
       "x_label": "concurrency",
       "x": 4000,
-      "y": 3.5,
+      "y": 3.4,
       "unit": "%",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 2.4~4.1)"
     },
     {
       "metric": "usec_per_call",
       "series": "SET",
       "x_label": "concurrency",
       "x": 4000,
-      "y": 0.48,
+      "y": 0.52,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.43~0.53)"
     },
     {
       "metric": "usec_per_call",
       "series": "GET",
       "x_label": "concurrency",
       "x": 4000,
-      "y": 0.37,
+      "y": 0.45,
       "unit": "usec",
-      "note": null
+      "note": "3회 반복 중앙값 (범위 0.35~0.46)"
+    },
+    {
+      "metric": "runner_cpu_utilization_pct",
+      "series": null,
+      "x_label": "concurrency",
+      "x": 4000,
+      "y": 30.5,
+      "unit": "%",
+      "note": "3회 반복 중앙값 (범위 29.8~33.3)"
     }
   ],
   "summary": {
     "blocking_threshold_concurrency": 250,
-    "baseline_p99_ms": 0.071,
-    "redis_cpu_utilization_pct_at_threshold": 10.9
+    "baseline_p99_ms": 0.087,
+    "redis_cpu_utilization_pct_at_threshold": 10.0,
+    "runner_cpu_utilization_pct_at_threshold": 77.4
   },
   "status": "success",
   "notes": []
