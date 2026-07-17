@@ -1,5 +1,6 @@
 # 템플릿 실행 임시 산출물 (커밋 대상 아님 — experiments/로 승격된 결과만 커밋한다)
-templates/**/results/
+# results*/ — --out을 기본값(results)이 아닌 다른 이름으로 줘도 걸러지도록 글롭 사용
+templates/**/results*/
 
 # 실험의 원본 미가공 산출물 (raw 벤치마크 덤프 등). results.json/results.csv/charts/는 커밋 대상이다.
 experiments/**/results/raw/
