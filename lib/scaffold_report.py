@@ -31,7 +31,21 @@ from pathlib import Path
 
 import yaml
 
+from lib.check_report import extract_section
+
 TODO = "TODO(scaffold_report)"
+
+# 결과/구성은 기계적으로 채워지는 절이라 판단 프로즈가 들어있는지 확인할
+# 대상에서 뺀다 — 나머지 절은 전부 사람/Claude가 채워야 하는 판단 영역이다.
+JUDGMENT_SECTIONS = [
+    "안건",
+    "가설",
+    "요약",
+    "방법",
+    "발견 사항 및 분석",
+    "결론",
+    "연관 연구 주제 제안",
+]
 
 # CONTRACT.md 3절의 '## section' 헤더 순서. lib/check_report.py Mode A가
 # 아직 없으므로 여기서 직접 하드코딩한다 — 착지하면 그쪽으로 대체한다.
@@ -134,6 +148,22 @@ def _header_block(template_name: str, date: str) -> str:
     )
 
 
+def _still_fully_scaffolded(existing: str) -> bool:
+    """모든 판단 절(제목 포함)이 아직 스캐폴딩 당시의 TODO 자리표시자 그대로인지
+    확인한다. 하나라도 실제 프로즈로 바뀌었다면 이미 작성이 시작된 문서이므로
+    False를 돌려준다 — "TODO 마커가 파일 어딘가에 하나라도 있으면 통째로
+    덮어써도 된다"는 예전 판단은 8/9 절이 이미 완성된 문서에서 나머지 1개
+    절만 TODO로 남아 있어도 전체를 조용히 지워버리는 사고를 낼 수 있었다."""
+    title_match = re.match(r"^#\s+(.+)$", existing, re.MULTILINE)
+    if not title_match or TODO not in title_match.group(1):
+        return False
+    for name in JUDGMENT_SECTIONS:
+        section = extract_section(existing, name)
+        if section is None or TODO not in section:
+            return False
+    return True
+
+
 def scaffold_report(experiment_dir: Path) -> Path:
     results_path = experiment_dir / "results" / "results.json"
     params_path = experiment_dir / "params.yml"
@@ -148,10 +178,11 @@ def scaffold_report(experiment_dir: Path) -> Path:
 
     if readme_path.is_file():
         existing = readme_path.read_text(encoding="utf-8")
-        if TODO not in existing:
+        if not _still_fully_scaffolded(existing):
             print(
-                f"이미 존재합니다: {readme_path} — TODO 마커가 없어 이미 작성된 "
-                "리포트로 판단해 덮어쓰지 않습니다",
+                f"이미 존재합니다: {readme_path} — 판단 절 중 하나 이상이 이미 "
+                f"작성되어 있어(TODO 마커가 없음) 덮어쓰지 않습니다. 전체를 다시 "
+                "스캐폴딩하려면 파일을 먼저 지우세요",
                 file=sys.stderr,
             )
             raise SystemExit(1)

@@ -36,6 +36,9 @@ jobs:
       - uses: actions/checkout@v4
       - run: docker compose -f docker/runner/docker-compose.yml build
       - run: |
+          docker compose -f docker/runner/docker-compose.yml run --rm runner \
+            python -m lib.check_report --structure "experiments/$DIR/README.md"
+      - run: |
           # agenda.md는 선택 파일이다 — 있을 때만 --agenda를 붙인다.
           agenda_args=()
           if [ -f "experiments/$DIR/agenda.md" ]; then
