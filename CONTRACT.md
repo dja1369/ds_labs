@@ -109,20 +109,15 @@ ${NEXT_QUESTIONS}
 
 `lib/chart.py`가 생성하는 차트는 항상 정적 PNG이며, 파일명 규칙은 `charts/<metric 슬러그>.png`다(metric 필드명 그대로 소문자·공백을 언더스코어로 치환). 색상/DPI/폰트 등 스타일은 `lib/style.mplstyle` 하나로 고정한다(개별 커스터마이징 금지).
 
-## 실시간 대시보드 캡처 (로컬 Playwright)
+## 실시간 대시보드 캡처 (Playwright MCP)
 
 부하 도구가 실행 중 접속 가능한 웹 대시보드를 제공할 때(예: k6의 `K6_WEB_DASHBOARD=true`, Locust 웹 UI `:8089`), `METHOD`의 해당 단계에 그 대시보드 캡처를 넣을 수 있다. 없으면 억지로 만들지 않는다 — `METHOD`는 캡처 없이 실행 커맨드 코드 블록만으로도 완결된 문서다.
 
-**Playwright MCP가 아니라 호스트에 직접 설치한 Playwright를 쓴다(2026-07-17 양쪽 다 실측 검증됨)**:
-- Playwright **MCP**(연결된 MCP 도구로 호출하는 브라우저)는 백그라운드 잡 환경에서 아웃바운드 인터넷(`https://example.com` 등)은 되지만 같은 호스트의 Docker 노출 포트(`localhost:<port>`, `host.docker.internal:<port>` 둘 다)에는 접근하지 못했다(`net::ERR_CONNECTION_REFUSED`/`ERR_NAME_NOT_RESOLVED`) — 네트워크가 격리된 별도 샌드박스에서 브라우저가 도는 것으로 보인다.
-- 반면 **호스트 Bash 환경에 `npm install playwright`로 직접 설치해 Node.js 스크립트로 구동한 Chromium은 `localhost:5665`(k6 web-dashboard)에 정상 접근해 실제 대시보드를 캡처했다** — `curl`과 같은 네트워크 네임스페이스를 쓰기 때문이다. 이것이 검증된 방법이다.
-- (참고) 인터랙티브 세션에서 Playwright MCP가 다르게 동작할지는 미검증 — 확인 안 된 가정으로 넘겨짚지 않는다. 백그라운드 잡에서는 무조건 로컬 설치 방식을 쓴다.
+**Playwright MCP(`browser_navigate`/`browser_take_screenshot`)를 그대로 쓴다.** 2026-07-17에 "MCP 브라우저가 Docker 노출 포트에 접근 못 한다"고 잘못 결론 내린 적이 있는데, 실제 원인은 네트워크 격리가 아니라 **타이밍**이었다 — 첫 테스트에서 부하 스크립트가 30초짜리였는데, 대화 턴 사이 지연 때문에 Playwright로 접속을 시도했을 땐 이미 컨테이너가 끝나 포트가 닫혀 있었다. 이후 3분짜리로 다시 테스트하니 정상 접속·캡처됐다(Playwright MCP 브라우저는 실제로 호스트에서 직접 도는 일반 Chrome이라 네트워크가 격리될 이유가 애초에 없었다). **교훈: 캡처 직전에 반드시 대상 대시보드가 아직 살아있는지 확인한다** — 부하 실행 시간을 캡처 타이밍보다 충분히 길게 잡거나, 캡처 스텝을 부하 실행 도중(끝난 뒤 X초 뒤 시도, 이런 식 금지)에 바로 수행한다.
 
 **절차**:
 1. `docker-compose.yml`에서 대시보드 포트를 호스트로 노출한다(예: `ports: ["5665:5665"]`).
-2. 부하 실행을 백그라운드로 띄운다.
-3. 스크래치 디렉터리에서 `npm install playwright && npx playwright install chromium`(브라우저 바이너리가 로컬에 캐시돼 있지 않으면 다운로드 필요, ~250MB) 후, `chromium.launch()` → `page.goto('http://localhost:<port>/')` → `page.screenshot({ path: ... })`로 캡처한다. 먼저 `curl`로 대시보드가 실제로 뜨는지 확인하고 나서 시도한다.
-4. 스윕 중 의미 있는 시점(예: 시작 직후·중간·임계점 근처)마다 캡처한다.
+2. 부하 실행을 백그라운드로 띄운다 — 캡처할 시점들을 다 커버할 만큼 충분히 긴 duration으로.
+3. `browser_navigate`로 대시보드 URL에 접속하기 전에, 대상이 아직 실행 중인지 확인한다(예: `curl -o /dev/null -w '%{http_code}' <url>`로 빠르게 체크 — 실패하면 부하 실행이 이미 끝난 것이니 duration을 늘려 다시 돌린다).
+4. 스윕 중 의미 있는 시점(예: 시작 직후·중간·임계점 근처)마다 `browser_navigate` + `browser_take_screenshot`으로 PNG를 저장한다.
 5. 캡처 PNG는 `results/captures/<step>.png`로 두고 `METHOD`의 해당 단계 바로 아래에 삽입한다. `lib/publish_post.py`의 `IMAGE_RE`는 현재 `results/charts/`만 인식하므로, Jekyll 발행 시에도 캡처가 살아있게 하려면 이 정규식을 `results/captures/`까지 인식하도록 확장하는 작업이 먼저 필요하다(아직 미구현 — 캡처를 실제로 쓰는 첫 템플릿에서 함께 처리한다).
-
-**이 프로젝트의 "호스트에 Python 설치 금지, 전부 컨테이너 안에서" 원칙에 대한 의도적 예외**: 캡처는 Node.js/Playwright가 필요하고 브라우저 바이너리라 컨테이너에 넣기엔 무겁다 — 그리고 어차피 호스트 네트워크(Docker가 노출한 포트)에 붙어야 하니 호스트에서 직접 도는 게 자연스럽다. 이 예외는 캡처 기능에만 한정한다 — 검증/CSV 변환/차트 생성 등 나머지 파이프라인은 여전히 전부 `runner` 컨테이너 안에서만 실행한다.
