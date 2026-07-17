@@ -72,6 +72,13 @@ docker compose -f docker/runner/docker-compose.yml run --rm runner python -m lib
 
 ## 6. 코드 스타일
 
+- 환경/도구 제약이라고 결론 내리기 전에 먼저 실측으로 검증하세요 — 실패 한 번으로
+  "이 환경에서는 안 된다"고 문서화하지 않습니다. 프로세스가 실제로 어디서 도는지
+  (`ps aux` 등), 재현 조건(타이밍 등)이 첫 시도와 같은지부터 확인합니다. 실제 사례:
+  Playwright MCP가 Docker 노출 포트에 접근 못 한다고 처음엔 결론 내렸다가, 원인이
+  네트워크 격리가 아니라 부하 스크립트 duration이 짧아 캡처 시도 전에 컨테이너가
+  이미 종료된 타이밍 문제였음이 재검증으로 드러남(`CONTRACT.md`의 "실시간 대시보드
+  캡처" 절 참고).
 - 외부 의존성 추가 전 "정말 stdlib/이미 있는 라이브러리로 안 되는가"를 자문하세요.
   `docker/runner/requirements.txt`에 항목을 늘리는 PR은 사유를 명시합니다.
 - `experiment.sh`는 `set -euo pipefail` 헤더 필수, 표준 플래그(`--params --out --smoke`)를
