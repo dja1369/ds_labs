@@ -1,0 +1,18 @@
+---
+permalink: /llms.txt
+---
+# ds_labs
+
+> {{ site.description }}
+
+모든 실험은 안건(연구 질문) → 가설 → 실측 → 결론 → 다음 연구 과제 순서로 문서화된다. `results.json`에 없는 수치는 본문에 등장할 수 없다 — 인용된 모든 수치가 실측치임을 CI가 자동 검증한다. 각 글 하단에는 재현 커맨드와 원시 데이터(`results.json`/`results.csv`)가 함께 공개된다.
+
+## 실험
+{% for post in site.posts %}{% unless post.categories contains "meta" %}- [{{ post.title }}]({{ post.url | relative_url }}): {{ post.description }}
+{% endunless %}{% endfor %}
+## 자료
+- [태그별로 보기]({{ '/tags/' | relative_url }}): 실험을 태그로 훑어보기
+- [연구 안건 목록](https://github.com/dja1369/ds_labs/blob/main/TOPICS.md): 다음 실험 후보 목록
+- [기여 가이드](https://github.com/dja1369/ds_labs/blob/main/CONTRIBUTING.md): 새 실험 템플릿을 추가하는 방법
+- [실행/데이터 계약](https://github.com/dja1369/ds_labs/blob/main/CONTRACT.md): 모든 실험이 지키는 실행 진입점·results.json 스키마·문서 구조
+- [GitHub 저장소](https://github.com/dja1369/ds_labs): 재현 코드 전체

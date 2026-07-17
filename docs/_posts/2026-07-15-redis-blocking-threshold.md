@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Redis에 요청을 얼마나 넣으면 터질까?
+description: Redis 단일 인스턴스는 초당 몇 건의 SET/GET 요청부터 P99 레이턴시가 급격히(10배 이상) 튀며 이벤트 루프가
+  포화 상태에 진입하는가?
 date: 2026-07-17 04:38:09 +0000
 image: /assets/images/2026-07-15-redis-blocking-threshold/p99_latency_ms.png
 categories:
