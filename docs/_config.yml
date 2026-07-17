@@ -1,14 +1,15 @@
 title: ds_labs
 lang: ko        # 미설정 시 minima base.html이 <html lang="en">으로 고정 — 게시물이 전부 한국어라 ko로 명시
-description: "컴퓨터/인프라 실험을 재현 가능한 형태로 기록하는 실험 랩"
+description: "컴퓨터/인프라 실험을 재현 가능한 형태로 기록하는 실험실"
 baseurl: /ds_labs        # 프로젝트 페이지(dja1369.github.io/ds_labs) 필수 — 없으면 relative_url이 도메인 루트를 가리켜 이미지 404
 url: https://dja1369.github.io
 repo_url: https://github.com/dja1369/ds_labs   # lib/publish_post.py가 experiment_url 생성에 사용
 ga_measurement_id: G-NFWHQFGMVC   # GA4 측정 ID (minima 기본 google_analytics 키는 폐지된 UA용이라 쓰지 않음, docs/_includes/head.html 참고)
 theme: minima
-author:                 # jekyll-seo-tag(활성 플러그인)가 메타 태그 생성에 사용
-  name: dja1369
-  url: https://github.com/dja1369
+# jekyll-seo-tag(활성 플러그인)가 메타 태그 생성에 사용. name/url 해시로 두면
+# minima 2.5.1 footer.html이 site.author를 그대로 찍어 footer에 Ruby 해시 문자열
+# ({"name"=>...})이 그대로 노출되는 버그가 있어 문자열로 단순화한다.
+author: dja1369
 github_username: dja1369   # minima 2.5.1(github-pages gem이 실제 고정하는 버전)의 footer social.html이 읽는 키.
                             # minima 3.0의 `minima.social_links`는 이 버전엔 없어 조용히 무시되므로 대신 사용
 show_excerpts: true    # 홈 포스트 목록에 발췌문 노출 (minima 2.5.1 최상위 키)

@@ -3,7 +3,7 @@ layout: home
 title: ds_labs
 ---
 
-**ds_labs**는 컴퓨터/인프라 궁금한 거 직접 찔러보고 기록하는 실험 랩.
+**ds_labs**는 컴퓨터/인프라 궁금한 거 직접 찔러보고 기록하는 실험실.
 
 "Redis에 요청을 얼마나 넣으면 터질까?" 같은 질문이 떠오르면 Docker로 환경
 띄우고, 부하 걸고, 결과 그래프로 남긴다. Redis, Kubernetes, ClickHouse,

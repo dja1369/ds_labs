@@ -2,7 +2,7 @@
 
 컴퓨터/인프라 실험(Redis, Kubernetes, ClickHouse, Spring Boot 등)을 재현 가능한
 형태로 수행하고, 결과를 [GitHub Pages](https://dja1369.github.io/ds_labs/)에
-공개하는 실험 랩입니다.
+공개하는 실험실입니다.
 
 ```
 안건(연구 질문) → 템플릿 기반 환경 구성 → 테스트 진행 → 문서화(이미지 포함) → 결론 정리 → 다음 연구 과제 제안
